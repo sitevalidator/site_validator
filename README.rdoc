@@ -1,35 +1,19 @@
 = w3clove :: site-wide markup validator
 
-_This is my Ruby Mendicant University [0] personal project, and is currently in alpha status._
+This is my {Ruby Mendicant University}[http://university.rubymendicant.com/] personal project, and is currently in alpha status.
 
 I want to build a Ruby gem that lets you validate a whole web site against the W3C Markup Validator, from the command line, and generate a comprehensive report of all errors found.
 
-Currently, the official W3C Validator site [1] only lets you validate one URL at a time, so when you want to validate all the pages on a web site, it can be a tedious process. There is a related tool [2] that lets you use a batch mode for this and submit a list of URLs to be checked, but it is still a semi-manual process, and the output is not very useful.
+Currently, the official {W3C Validator site}[http://validator.w3.org/] only lets you validate one URL at a time, so when you want to validate all the pages on a web site, it can be a tedious process. There is a {related tool}[http://www.htmlhelp.com/tools/validator/batch.html.en] that lets you use a batch mode for this and submit a list of URLs to be checked, but it is still a semi-manual process, and the output is not very useful.
 
-My plan then is building a command line utility that would accept as input a XML sitemap file, or its URL, expecting it to be on the Google Sitemap format [3]. This utility will then check the markup validation of each URL on this sitemap querying the W3C Validator, and store all detected errors and warnings. After checking all the URLs, it will generate as output an HTML file, with a style similar to what RCov [4] produces, showing all these errors on an easy to read format, grouping common errors together, sorting them by popularity, and linking to the URLs and to the explanations on how to correct them.
+My plan then is building a command line utility that would accept as input a XML sitemap file, or its URL, expecting it to be on the {Google Sitemap format}[http://en.wikipedia.org/wiki/Google_Sitemaps]. This utility will then check the markup validation of each URL on this sitemap querying the W3C Validator, and store all detected errors and warnings. After checking all the URLs, it will generate as output an HTML file, with a style similar to what RCov[https://github.com/relevance/rcov] produces, showing all these errors on an easy to read format, grouping common errors together, sorting them by popularity, and linking to the URLs and to the explanations on how to correct them.
 
-Internally, it would use the w3c_validators gem [5] to do the individual checks, so my gem would be concerned only with the XML sitemap parsing, building the queue, storing the errors, grouping and sorting them, and producing the HTML output.
+Internally, it would use the {w3c_validators gem}[http://rubygems.org/gems/w3c_validators] to do the individual checks, so my gem would be concerned only with the XML sitemap parsing, building the queue, storing the errors, grouping and sorting them, and producing the HTML output.
 
-I've already done something similar to this, I sent a little contribution [6] to docrails that checks the generated guides using this gem.
+I've already done something similar to this, I sent {a little contribution to docrails}[https://github.com/lifo/docrails/blob/master/railties/guides/w3c_validator.rb] that checks the generated guides using this gem.
 
 = Bonus points:
 
 * in addition to an XML file, accept as input the URL of a site and crawl the site to find all internal links
 * validate the markup locally, without querying the W3C site, for more speed and to not saturate the W3C site
-* store the results on a local database, so on subsequent checks, only the pages that had errors are re-checked (unless a --checkall force flag is passed). This way developers can check the whole site, get the errors, deploy the corrections, and recheck the site
-
-= Links
-
-[0] http://university.rubymendicant.com/
-
-[1] http://validator.w3.org/
-
-[2] http://www.htmlhelp.com/tools/validator/batch.html.en
-
-[3] http://en.wikipedia.org/wiki/Google_Sitemaps
-
-[4] https://github.com/relevance/rcov
-
-[5] http://rubygems.org/gems/w3c_validators
-
-[6] https://github.com/lifo/docrails/blob/master/railties/guides/w3c_validator.rb
+* store the results on a local database, so on subsequent checks, only the pages that had errors are re-checked (unless a --checkall force flag is passed). This way developers can check the whole site, get the errors, deploy the corrections, and recheck the site.
