@@ -1,8 +1,8 @@
-= w3clove :: site-wide markup validator
+= w3clove
 
 This is my {Ruby Mendicant University}[http://university.rubymendicant.com/] personal project, and is currently in alpha status.
 
-I want to build a Ruby gem that lets you validate a whole web site against the W3C Markup Validator, from the command line, and generate a comprehensive report of all errors found.
+I want to build a site-wide markup validator, a Ruby gem that lets you validate a whole web site against the W3C Markup Validator, from the command line, and generate a comprehensive report of all errors found.
 
 Currently, the official {W3C Validator site}[http://validator.w3.org/] only lets you validate one URL at a time, so when you want to validate all the pages on a web site, it can be a tedious process. There is a {related tool}[http://www.htmlhelp.com/tools/validator/batch.html.en] that lets you use a batch mode for this and submit a list of URLs to be checked, but it is still a semi-manual process, and the output is not very useful.
 
