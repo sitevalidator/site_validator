@@ -2,11 +2,11 @@
 
 require 'w3c_validators'
 include W3CValidators
+validator = MarkupValidator.new
 
 url = 'http://university.rubymendicant.com/'
 puts "Validating markup of #{url}"
 
-validator = MarkupValidator.new
 results = validator.validate_uri(url)
 
 if results.errors.length > 0
