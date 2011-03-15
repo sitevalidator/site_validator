@@ -17,3 +17,15 @@ I've already done something similar to this, I sent {a little contribution to do
 * in addition to an XML file, accept as input the URL of a site and crawl the site to find all internal links
 * validate the markup locally, without querying the W3C site, for more speed and to not saturate the W3C site
 * store the results on a local database, so on subsequent checks, only the pages that had errors are re-checked (unless a --checkall force flag is passed). This way developers can check the whole site, get the errors, deploy the corrections, and recheck the site.
+
+= Installation:
+
+w3clove is a Ruby gem that can be installed on the usual way
+
+  gem install w3clove
+
+= Usage:
+
+Pass it the url of an XML sitemap to be checked, like:
+
+  w3clove https://github.com/jaimeiniesta/w3clove/raw/master/heatup/sitemap.xml
