@@ -4,9 +4,9 @@ require 'w3c_validators'
 include W3CValidators
 validator = MarkupValidator.new
 
-urls = %w{http://university.rubymendicant.com/
-          http://university.rubymendicant.com/changelog.html
-          http://university.rubymendicant.com/alumni.html}
+urls = %w{http://www.ryanair.com/es/
+          http://www.ryanair.com/es/careers/job
+          http://www.ryanair.com/es/about}
 totals = {:errors => 0, :warnings => 0}
 
 urls.each do |url|
