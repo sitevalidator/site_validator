@@ -4,7 +4,7 @@ require "w3clove/version"
 
 Gem::Specification.new do |s|
   s.name        = "w3clove"
-  s.version     = W3clove::VERSION
+  s.version     = W3Clove::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Jaime Iniesta"]
   s.email       = ["jaimeiniesta@gmail.com"]
@@ -17,6 +17,8 @@ and outputs a detailed report with all errors and warnings }
 
   s.add_dependency 'w3c_validators', '1.0.2'
   s.add_dependency 'nokogiri'
+
+  s.add_development_dependency 'rspec'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")

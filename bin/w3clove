@@ -4,7 +4,7 @@
 require_relative '../lib/w3clove'
 
 begin
-  W3clove.check_sitemap(ARGV[0])
+  W3Clove::Validator.check(ARGV[0])
 rescue
   puts "There was an error processing your request"
   puts "USAGE: w3clove url_of_xml_sitemap"

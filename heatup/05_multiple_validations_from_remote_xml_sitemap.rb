@@ -8,7 +8,7 @@ validator = MarkupValidator.new
 
 totals = {:errors => 0, :warnings => 0}
 
-doc = Nokogiri::XML(open('https://github.com/jaimeiniesta/w3clove/raw/master/heatup/sitemap.xml'))
+doc = Nokogiri::XML(open('https://github.com/jaimeiniesta/w3clove/raw/master/spec/samples/sitemap.xml'))
 doc.css('loc').collect {|item| item.text}.each do |url|
   puts "\nValidating markup of #{url}"
   results = validator.validate_uri(url)
