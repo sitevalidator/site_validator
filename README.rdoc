@@ -28,4 +28,4 @@ w3clove is a Ruby gem that can be installed on the usual way
 
 Pass it the url of an XML sitemap to be checked, like:
 
-  w3clove https://github.com/jaimeiniesta/w3clove/raw/master/heatup/sitemap.xml
+  w3clove http://www.ryanair.com/sitemap.xml
