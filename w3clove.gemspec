@@ -15,7 +15,7 @@ and outputs a detailed report with all errors and warnings }
 
   s.rubyforge_project = "w3clove"
 
-  s.add_dependency 'w3c_validators'
+  s.add_dependency 'w3c_validators', '1.0.2'
   s.add_dependency 'nokogiri'
 
   s.files         = `git ls-files`.split("\n")
