@@ -4,6 +4,8 @@
 #
 module W3Clove
   module Validator
+    attr_writer :printer
+
     extend self
 
     ##
@@ -12,11 +14,17 @@ module W3Clove
       sitemap = W3Clove::Sitemap.new(url)
 
       sitemap.pages.each do |page|
-        puts "\nValidating markup of #{page.url}"
-        puts "#{page.errors.length} errors, #{page.warnings.length} warnings"
+        printer.puts "\nValidating markup of #{page.url}"
+        printer.puts "#{page.errors.length} errors, #{page.warnings.length} warnings"
       end
 
-      puts "\nTOTAL:#{sitemap.errors.length} errors, #{sitemap.warnings.length} warnings"
+      printer.puts "\nTOTAL:#{sitemap.errors.length} errors, #{sitemap.warnings.length} warnings"
+    end
+
+    private
+
+    def printer
+      @printer ||= STDOUT
     end
   end
 end
