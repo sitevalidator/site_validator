@@ -20,14 +20,16 @@ describe W3Clove::Sitemap do
   it "should know the errors of all of its pages as a whole" do
     @sitemap.errors.length.should == 11
     @sitemap.errors.each do |e|
-      e.should be_an_instance_of W3Clove::Error
+      e.should be_an_instance_of W3Clove::Message
+      e.type.should == :error
     end
   end
 
   it "should know the warnings of all of its pages as a whole" do
     @sitemap.warnings.length.should == 19
     @sitemap.warnings.each do |w|
-      w.should be_an_instance_of W3Clove::Warning
+      w.should be_an_instance_of W3Clove::Message
+      w.type.should == :warning
     end
   end
 end

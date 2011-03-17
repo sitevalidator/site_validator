@@ -13,15 +13,15 @@ module W3Clove
     end
 
     def pages
-      @pages ||= Nokogiri::XML(doc).css('loc').collect {|loc| W3Clove::Page.new(loc.text)}.uniq {|p| p.url}
+      @pages ||= Nokogiri::XML(doc).css('loc').map {|loc| W3Clove::Page.new(loc.text)}.uniq {|p| p.url}
     end
 
     def errors
-      pages.collect {|p| p.errors}.flatten
+      pages.map {|p| p.errors}.flatten
     end
 
     def warnings
-      pages.collect {|p| p.warnings}.flatten
+      pages.map {|p| p.warnings}.flatten
     end
 
     private

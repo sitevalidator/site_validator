@@ -13,11 +13,17 @@ module W3Clove
     end
 
     def errors
-      @errors ||= MarkupValidator.new.validate_uri(url).errors.collect {|e| W3Clove::Error.new(e.message_id, e.line, e.message)}
+      @errors ||= validation_results.errors.map {|e| W3Clove::Message.new(e.message_id, e.line, e.message, :error)}
     end
 
     def warnings
-      @warnings ||= MarkupValidator.new.validate_uri(url).warnings.collect {|w| W3Clove::Warning.new(w.message_id, w.line, w.message)}
+      @warnings ||= validation_results.warnings.map {|w| W3Clove::Message.new(w.message_id, w.line, w.message, :warning)}
+    end
+
+    private
+
+    def validation_results
+      @validation_results ||= MarkupValidator.new.validate_uri(url)
     end
   end
 end
