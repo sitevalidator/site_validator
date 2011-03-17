@@ -6,11 +6,8 @@
 # message...... generic but descriptive text about the error
 #
 module W3Clove
-  class Error
-    attr_accessor :message_id, :line, :message
-
-    def initialize(message_id, line, message)
-      @message_id, @line, @message = message_id, line, message
-    end
-  end
+  Error = Struct.new(:message_id, :line, :message)
 end
+
+
+
