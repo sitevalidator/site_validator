@@ -3,10 +3,12 @@
 # for all pages on a sitemap and output the errors
 #
 module W3Clove
-  class Validator
+  module Validator
+    extend self
+
     ##
     # Parses a remote xml sitemap and checks markup validation for each url within
-    def self.check(url)
+    def check(url)
       sitemap = W3Clove::Sitemap.new(url)
 
       sitemap.pages.each do |page|
