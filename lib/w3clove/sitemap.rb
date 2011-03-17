@@ -4,7 +4,6 @@
 module W3Clove
   require 'open-uri'
   require 'nokogiri'
-  require_relative '../array_extensions'
 
   class Sitemap
     attr_accessor :url
@@ -14,7 +13,7 @@ module W3Clove
     end
 
     def pages
-      @pages ||= Nokogiri::XML(doc).css('loc').collect {|loc| W3Clove::Page.new(loc.text)}.uniq_by {|p| p.url}
+      @pages ||= Nokogiri::XML(doc).css('loc').collect {|loc| W3Clove::Page.new(loc.text)}.uniq {|p| p.url}
     end
 
     def errors
