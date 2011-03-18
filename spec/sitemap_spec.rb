@@ -1,13 +1,15 @@
+# -*- encoding: utf-8 -*-
+
 require_relative 'spec_helper'
 
 describe W3Clove::Sitemap do
   before(:each) do
-    @sitemap = W3Clove::Sitemap.new('https://github.com/jaimeiniesta/w3clove/raw/master/heatup/sitemap.xml')
+    @sitemap = W3Clove::Sitemap.new('http://ryanair.com/sitemap.xml')
     @sitemap.stub!(:doc).and_return(open("#{$samples_dir}/sitemap.xml"))
   end
 
   it "should have an URL" do
-    @sitemap.url.should == 'https://github.com/jaimeiniesta/w3clove/raw/master/heatup/sitemap.xml'
+    @sitemap.url.should == 'http://ryanair.com/sitemap.xml'
   end
 
   it "should get its pages from the xml, removing repeated urls" do

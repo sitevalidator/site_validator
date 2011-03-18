@@ -1,10 +1,12 @@
-##
-# A sitemap has an URL, and holds a collection of pages to be validated
-#
-module W3Clove
-  require 'open-uri'
-  require 'nokogiri'
+# -*- encoding: utf-8 -*-
 
+require 'open-uri'
+require 'nokogiri'
+
+module W3Clove
+  ##
+  # A sitemap has an URL, and holds a collection of pages to be validated
+  #
   class Sitemap
     attr_accessor :url
 
@@ -13,7 +15,7 @@ module W3Clove
     end
 
     def pages
-      @pages ||= Nokogiri::XML(doc).css('loc').map {|loc| W3Clove::Page.new(loc.text)}.uniq {|p| p.url}
+      @pages ||= pages_in_sitemap.uniq {|p| p.url}
     end
 
     def errors
@@ -25,6 +27,14 @@ module W3Clove
     end
 
     private
+
+    def pages_in_sitemap
+      locations.map {|loc| W3Clove::Page.new(loc.text)}
+    end
+
+    def locations
+      Nokogiri::XML(doc).css('loc')
+    end
 
     def doc
       @doc ||= open(url)

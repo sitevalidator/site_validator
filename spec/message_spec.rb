@@ -1,9 +1,17 @@
+# -*- encoding: utf-8 -*-
+
 require_relative 'spec_helper'
 
 describe W3Clove::Message do
   before(:each) do
-    @error_message   = W3Clove::Message.new('25', 100, 'general entity X not defined and no default entity', :error)
-    @warning_message = W3Clove::Message.new('25', 100, 'general entity X not defined and no default entity', :warning)
+    @error_message   = W3Clove::Message.new('25',
+                                            100,
+                                            message_text('25'),
+                                            :error)
+    @warning_message = W3Clove::Message.new('25',
+                                            100,
+                                            message_text('25'),
+                                            :warning)
   end
 
   it "should have a message_id" do
@@ -15,7 +23,7 @@ describe W3Clove::Message do
   end
 
   it "should have a text" do
-    @error_message.text.should == 'general entity X not defined and no default entity'
+    @error_message.text.should == message_text('25')
   end
 
   it "should have a type" do

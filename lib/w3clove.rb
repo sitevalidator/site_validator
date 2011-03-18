@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 module W3Clove
   require_relative './w3clove/validator'
   require_relative './w3clove/sitemap'

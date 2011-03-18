@@ -1,11 +1,13 @@
-##
-# A page has an URL to be validated, and a collection of errors
-#
-module W3Clove
-  class Page
-    require 'w3c_validators'
-    include W3CValidators
+# -*- encoding: utf-8 -*-
 
+require 'w3c_validators'
+include W3CValidators
+
+module W3Clove
+  ##
+  # A page has an URL to be validated, and a collection of errors
+  #
+  class Page
     attr_accessor :url
 
     def initialize(url)
@@ -13,17 +15,25 @@ module W3Clove
     end
 
     def errors
-      @errors ||= validation_results.errors.map {|e| W3Clove::Message.new(e.message_id, e.line, e.message, :error)}
+      @errors ||= validations.errors.map {|e|
+                                          W3Clove::Message.new(e.message_id,
+                                                               e.line,
+                                                               e.message,
+                                                               :error)}
     end
 
     def warnings
-      @warnings ||= validation_results.warnings.map {|w| W3Clove::Message.new(w.message_id, w.line, w.message, :warning)}
+      @warnings ||= validations.warnings.map {|w|
+                                              W3Clove::Message.new(w.message_id,
+                                                                   w.line,
+                                                                   w.message,
+                                                                   :warning)}
     end
 
     private
 
-    def validation_results
-      @validation_results ||= MarkupValidator.new.validate_uri(url)
+    def validations
+      @validations ||= MarkupValidator.new.validate_uri(url)
     end
   end
 end
