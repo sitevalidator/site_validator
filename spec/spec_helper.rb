@@ -1,6 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 require_relative '../lib/w3clove'
+require_relative './mocks/mocked_validator'
+require 'mocha'
 
 $samples_dir = File.dirname(__FILE__) + '/samples'
 
@@ -13,4 +15,18 @@ def message_text(message_id)
     '247' => 'NET-enabling start-tag requires SHORTTAG YES'
   }
   message_texts[message_id]
+end
+
+def stubbed_validator_results
+  fake_validator = W3Clove::MockedValidator.new
+
+  fake_validator.add_error('25', '92', message_text('25'))
+  fake_validator.add_error('325', '92', message_text('325'))
+  fake_validator.add_error('325', '224', message_text('325'))
+
+  fake_validator.add_warning('338', '92', message_text('338'))
+  fake_validator.add_warning('247', '112', message_text('247'))
+  fake_validator.add_warning('247', '202', message_text('247'))
+
+  fake_validator
 end

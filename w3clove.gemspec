@@ -20,6 +20,7 @@ and outputs a detailed report with all errors and warnings }
   s.add_dependency 'nokogiri'
 
   s.add_development_dependency 'rspec'
+  s.add_development_dependency 'mocha'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
