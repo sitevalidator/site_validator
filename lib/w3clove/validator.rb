@@ -33,7 +33,7 @@ module W3Clove
     def show_results(sitemap)
       show_sitemap_summary(sitemap)
       show_popular_errors(sitemap)
-      show_popular_errors(sitemap)
+      show_popular_warnings(sitemap)
       say "\n\nDETAILS PER PAGE"
       sitemap.pages.select {|page| !page.errors.empty?}.each do |p|
         show_page_summary(p)
