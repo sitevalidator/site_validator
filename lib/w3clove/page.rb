@@ -6,12 +6,23 @@ include W3CValidators
 module W3Clove
   ##
   # A page has an URL to be validated, and a collection of errors
+  # In case of an exception happens when validating, it is tracked
   #
   class Page
-    attr_accessor :url, :status
+    attr_accessor :url, :exception
 
     def initialize(url)
       @url = url
+    end
+
+    ##
+    # Checks for errors and returns true if none found, false otherwise
+    # warnings are not considered as validation errors so a page with
+    # warnings but without errors will return true
+    # If the validation goes well, errors should be an array. Otherwise
+    # it will still be nil, which will not be considered validated
+    def valid?
+      !errors.nil? && errors.empty?
     end
 
     def errors
@@ -21,7 +32,7 @@ module W3Clove
                                                                e.message,
                                                                :error)}
     rescue Exception => e
-      @status = e.to_s
+      @exception = e.to_s
       nil
     end
 
@@ -32,7 +43,7 @@ module W3Clove
                                                                    w.message,
                                                                    :warning)}
     rescue Exception => e
-      @status = e.to_s
+      @exception = e.to_s
       nil
     end
 

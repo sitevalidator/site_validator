@@ -17,16 +17,20 @@ def message_text(message_id)
   message_texts[message_id]
 end
 
-def stubbed_validator_results
+def stubbed_validator_results(with_errors=true, with_warnings=true)
   fake_validator = W3Clove::MockedValidator.new
 
-  fake_validator.add_error('25', '92', message_text('25'))
-  fake_validator.add_error('325', '92', message_text('325'))
-  fake_validator.add_error('325', '224', message_text('325'))
+  if with_errors
+    fake_validator.add_error('25', '92', message_text('25'))
+    fake_validator.add_error('325', '92', message_text('325'))
+    fake_validator.add_error('325', '224', message_text('325'))
+  end
 
-  fake_validator.add_warning('338', '92', message_text('338'))
-  fake_validator.add_warning('247', '112', message_text('247'))
-  fake_validator.add_warning('247', '202', message_text('247'))
+  if with_warnings
+    fake_validator.add_warning('338', '92', message_text('338'))
+    fake_validator.add_warning('247', '112', message_text('247'))
+    fake_validator.add_warning('247', '202', message_text('247'))
+  end
 
   fake_validator
 end
