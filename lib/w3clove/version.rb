@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
 
 module W3Clove
-  VERSION = "0.0.2"
+  VERSION = "0.2.1"
 end
