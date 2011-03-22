@@ -5,7 +5,7 @@ require_relative 'spec_helper'
 describe W3Clove::Page do
   before(:each) do
     @page = W3Clove::Page.new('http://www.ryanair.com/es/')
-    MarkupValidator.any_instance.stubs(:validate_uri).returns(stubbed_validator_results)
+    MarkupValidator.any_instance.stubs(:validate_uri).with('http://www.ryanair.com/es/').returns(stubbed_validator_results)
   end
 
   it "should have an URL" do
@@ -56,6 +56,22 @@ describe W3Clove::Page do
     @page.warnings[2].line.should == '202'
     @page.warnings[2].text.should == message_text('247')
     @page.warnings[2].type.should == :warning
+  end
+
+  it "should recover from timeouts when checking for errors" do
+    page = W3Clove::Page.new('http://example.com/timeout')
+    MarkupValidator.any_instance.stubs(:validate_uri).with('http://example.com/timeout').raises(TimeoutError)
+    lambda { page.errors }.should_not raise_error
+    page.errors.should be_nil
+    page.status.should == 'Timeout::Error'
+  end
+
+  it "should recover from timeouts when checking for warnings" do
+    page = W3Clove::Page.new('http://example.com/timeout')
+    MarkupValidator.any_instance.stubs(:validate_uri).with('http://example.com/timeout').raises(TimeoutError)
+    lambda { page.warnings }.should_not raise_error
+    page.warnings.should be_nil
+    page.status.should == 'Timeout::Error'
   end
 end
 

@@ -8,7 +8,7 @@ module W3Clove
   # A page has an URL to be validated, and a collection of errors
   #
   class Page
-    attr_accessor :url
+    attr_accessor :url, :status
 
     def initialize(url)
       @url = url
@@ -20,6 +20,9 @@ module W3Clove
                                                                e.line,
                                                                e.message,
                                                                :error)}
+    rescue Exception => e
+      @status = e.to_s
+      nil
     end
 
     def warnings
@@ -28,6 +31,9 @@ module W3Clove
                                                                    w.line,
                                                                    w.message,
                                                                    :warning)}
+    rescue Exception => e
+      @status = e.to_s
+      nil
     end
 
     private
