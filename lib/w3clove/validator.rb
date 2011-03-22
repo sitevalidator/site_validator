@@ -12,7 +12,7 @@ module W3Clove
 
     ##
     # Parses a remote xml sitemap and checks markup validation for each url
-    # Shows progress on dot-style (...F...FFE..). A dot is a page with no errors,
+    # Shows progress on dot-style (...F...FFE..). A dot is a valid page,
     # an F is a page with errors, and an E is an exception
     # After the checking is done, a detailed summary is shown
     def check(url)
@@ -49,16 +49,20 @@ HEREDOC
 
     def show_popular_errors(sitemap)
       say "\n\nMOST POPULAR ERRORS\n"
-      sitemap.errors.group_by {|e| e.message_id}.sort_by {|m,e| e.length}.reverse.each do |message_id, errors|
-        say "error #{message_id} happens #{errors.length} times"
-      end
+      sitemap.errors.group_by {|e| e.message_id}
+        .sort_by {|m,e| e.length}
+        .reverse.each do |message_id, errors|
+          say "error #{message_id} happens #{errors.length} times"
+        end
     end
 
     def show_popular_warnings(sitemap)
       say "\n\nMOST POPULAR WARNINGS\n"
-      sitemap.warnings.group_by {|e| e.message_id}.sort_by {|m,e| e.length}.reverse.each do |message_id, warnings|
-        say "warning #{message_id} happens #{warnings.length} times"
-      end
+      sitemap.warnings.group_by {|e| e.message_id}
+        .sort_by {|m,e| e.length}
+        .reverse.each do |message_id, warnings|
+          say "warning #{message_id} happens #{warnings.length} times"
+        end
     end
 
     def show_page_summary(page)
