@@ -14,70 +14,20 @@ module W3Clove
     # Parses a remote xml sitemap and checks markup validation for each url
     # Shows progress on dot-style (...F...FFE..). A dot is a valid page,
     # an F is a page with errors, and an E is an exception
-    # After the checking is done, a detailed summary is shown
+    # After the checking is done, a detailed summary is generated
     def check(url)
       sitemap = W3Clove::Sitemap.new(url)
-      say "Validating #{sitemap.pages.length} pages..."
+      say "Validating #{sitemap.pages.length} pages"
 
       sitemap.pages.each do |page|
         say_inline page.valid? ? "." : (page.errors.nil? ? 'E' : 'F')
       end
 
-      show_results(sitemap)
+      W3Clove::Reporter.generate_html(sitemap)
+      say "\nValidation finished, see the report at w3clove.html"
     end
 
     private
-
-    ##
-    # Outputs the results of the validation
-    def show_results(sitemap)
-      show_sitemap_summary(sitemap)
-      show_popular_errors(sitemap)
-      show_popular_warnings(sitemap)
-      say "\n\nDETAILS PER PAGE"
-      sitemap.pages.select {|page| !page.errors.empty?}.each do |p|
-        show_page_summary(p)
-      end
-    end
-
-    def show_sitemap_summary(sitemap)
-      <<HEREDOC
-SITEMAP SUMMARY
-TOTAL: #{sitemap.errors.length} errors, #{sitemap.warnings.length} warnings
-HEREDOC
-    end
-
-    def show_popular_errors(sitemap)
-      say "\n\nMOST POPULAR ERRORS\n"
-      sitemap.errors.group_by {|e| e.message_id}
-        .sort_by {|m,e| e.length}
-        .reverse.each do |message_id, errors|
-          say "error #{message_id} happens #{errors.length} times"
-        end
-    end
-
-    def show_popular_warnings(sitemap)
-      say "\n\nMOST POPULAR WARNINGS\n"
-      sitemap.warnings.group_by {|e| e.message_id}
-        .sort_by {|m,e| e.length}
-        .reverse.each do |message_id, warnings|
-          say "warning #{message_id} happens #{warnings.length} times"
-        end
-    end
-
-    def show_page_summary(page)
-      say "\n  ** #{page.url} **"
-      "    #{page.errors.length} errors, #{page.warnings.length} warnings"
-      page.errors.each do |error|
-        say "\n    Error #{error.message_id} on line #{error.line}:"
-        say "    #{error.text}"
-      end
-
-      page.warnings.each do |warning|
-        say "\n    Warning #{warning.message_id} on line #{warning.line}:"
-        say "    #{warning.text}"
-      end
-    end
 
     def printer
       @printer ||= STDOUT

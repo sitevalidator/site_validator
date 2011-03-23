@@ -19,11 +19,15 @@ module W3Clove
     end
 
     def errors
-      pages.map {|p| p.errors}.flatten
+      @errors ||= pages.map {|p| p.errors}.flatten.reject {|e| e.nil?}
     end
 
     def warnings
-      pages.map {|p| p.warnings}.flatten
+      @warnings ||= pages.map {|p| p.warnings}.flatten.reject {|e| e.nil?}
+    end
+
+    def get_binding
+      binding
     end
 
     private
