@@ -8,10 +8,10 @@ module W3Clove
 
     ##
     # Create the html report for the sitemap
-    def generate_html(sitemap)
+    def generate_html(sitemap, filename)
       template = ERB.new(open(File.dirname(__FILE__)+'/templates/w3clove.html.erb').read)
 
-      File.open('w3clove.html', 'w') do |f|
+      File.open(filename, 'w') do |f|
         f.write(template.result(sitemap.get_binding))
       end
     rescue Exception => e

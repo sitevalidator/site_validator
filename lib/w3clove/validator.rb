@@ -14,8 +14,8 @@ module W3Clove
     # Parses a remote xml sitemap and checks markup validation for each url
     # Shows progress on dot-style (...F...FFE..). A dot is a valid page,
     # an F is a page with errors, and an E is an exception
-    # After the checking is done, a detailed summary is generated
-    def check(url)
+    # After the checking is done, a detailed summary is written to filename
+    def check(url, filename)
       sitemap = W3Clove::Sitemap.new(url)
       say "Validating #{sitemap.pages.length} pages"
 
@@ -23,8 +23,8 @@ module W3Clove
         say_inline page.valid? ? "." : (page.errors.nil? ? 'E' : 'F')
       end
 
-      W3Clove::Reporter.generate_html(sitemap)
-      say "\nValidation finished, see the report at w3clove.html"
+      W3Clove::Reporter.generate_html(sitemap, filename)
+      say "\nValidation finished, see the report at #{filename}"
     end
 
     private
