@@ -12,8 +12,8 @@ module W3Clove
       template = ERB.new(open(File.dirname(__FILE__)+'/templates/w3clove.html.erb').read)
 
       File.open('w3clove.html', 'w') do |f|
-                                       f.write(template.result(sitemap.get_binding))
-                                     end
+        f.write(template.result(sitemap.get_binding))
+      end
     rescue Exception => e
       puts "ERROR generating report: #{e}"
     end
