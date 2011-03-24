@@ -31,7 +31,9 @@ module W3Clove
     # If it has no validation errors, it will be an empty array.
     # It an exception occurs, it will be nil.
     def errors
-      @errors ||= validations.errors.map do |e|
+      @errors ||= validations.errors
+                    .select {|e| e.message_id && !e.message_id.empty?}
+                    .map do |e|
         W3Clove::Message.new(e.message_id, e.line, e.message, :error)
       end
     rescue Exception => e
@@ -44,7 +46,9 @@ module W3Clove
     # If it has no validation warnings, it will be an empty array.
     # It an exception occurs, it will be nil.
     def warnings
-      @warnings ||= validations.warnings.map do |w|
+      @warnings ||= validations.warnings
+                     .select {|w| w.message_id && !w.message_id.empty?}
+                     .map do |w|
         W3Clove::Message.new(w.message_id, w.line, w.message, :warning)
       end
     rescue Exception => e

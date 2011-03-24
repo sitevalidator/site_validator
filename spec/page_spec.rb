@@ -5,7 +5,10 @@ require_relative 'spec_helper'
 describe W3Clove::Page do
   before(:each) do
     @page = W3Clove::Page.new('http://www.ryanair.com/es/')
-    MarkupValidator.any_instance.stubs(:validate_uri).with('http://www.ryanair.com/es/').returns(stubbed_validator_results)
+    MarkupValidator.any_instance
+      .stubs(:validate_uri)
+      .with('http://www.ryanair.com/es/')
+      .returns(stubbed_validator_results)
   end
 
   it "should have an URL" do
@@ -19,7 +22,10 @@ describe W3Clove::Page do
 
   it "should be valid when it has no errors, even if it has warnings" do
     page = W3Clove::Page.new('http://example.com/no_errors_but_warnings')
-    MarkupValidator.any_instance.stubs(:validate_uri).with('http://example.com/no_errors_but_warnings').returns(stubbed_validator_results(false))
+    MarkupValidator.any_instance
+      .stubs(:validate_uri)
+      .with('http://example.com/no_errors_but_warnings')
+      .returns(stubbed_validator_results(false))
     page.errors.should be_empty
     page.warnings.should_not be_empty
     page.should be_valid
@@ -27,7 +33,10 @@ describe W3Clove::Page do
 
   it "should not be valid if an exception happened when validating" do
     page = W3Clove::Page.new('http://example.com/timeout')
-    MarkupValidator.any_instance.stubs(:validate_uri).with('http://example.com/timeout').raises(TimeoutError)
+    MarkupValidator.any_instance
+      .stubs(:validate_uri)
+      .with('http://example.com/timeout')
+      .raises(TimeoutError)
     page.errors.should be_nil
     page.should_not be_valid
   end
@@ -80,7 +89,10 @@ describe W3Clove::Page do
 
   it "should recover from timeouts when checking for errors" do
     page = W3Clove::Page.new('http://example.com/timeout')
-    MarkupValidator.any_instance.stubs(:validate_uri).with('http://example.com/timeout').raises(TimeoutError)
+    MarkupValidator.any_instance
+      .stubs(:validate_uri)
+      .with('http://example.com/timeout')
+      .raises(TimeoutError)
     lambda { page.errors }.should_not raise_error
     page.errors.should be_nil
     page.exception.should == 'Timeout::Error'
@@ -88,10 +100,41 @@ describe W3Clove::Page do
 
   it "should recover from timeouts when checking for warnings" do
     page = W3Clove::Page.new('http://example.com/timeout')
-    MarkupValidator.any_instance.stubs(:validate_uri).with('http://example.com/timeout').raises(TimeoutError)
+    MarkupValidator.any_instance
+      .stubs(:validate_uri)
+      .with('http://example.com/timeout')
+      .raises(TimeoutError)
     lambda { page.warnings }.should_not raise_error
     page.warnings.should be_nil
     page.exception.should == 'Timeout::Error'
+  end
+
+  it "should not record empty errors returned by the validator" do
+    mocked_validator = W3Clove::MockedValidator.new
+    mocked_validator.add_error('25', '92', message_text('25'))
+    mocked_validator.add_error('', '', '')
+    mocked_validator.add_error(nil, nil, nil)
+    MarkupValidator.any_instance
+      .stubs(:validate_uri)
+      .with('http://example.com/emptyerrors')
+      .returns(mocked_validator)
+    page = W3Clove::Page.new('http://example.com/emptyerrors')
+    page.errors.length.should == 1
+    page.errors.first.message_id.should == '25'
+  end
+
+  it "should not record empty warnings returned by the validator" do
+    mocked_validator = W3Clove::MockedValidator.new
+    mocked_validator.add_warning('25', '92', message_text('25'))
+    mocked_validator.add_warning('', '', '')
+    mocked_validator.add_warning(nil, nil, nil)
+    MarkupValidator.any_instance
+      .stubs(:validate_uri)
+      .with('http://example.com/emptyerrors')
+      .returns(mocked_validator)
+    page = W3Clove::Page.new('http://example.com/emptyerrors')
+    page.warnings.length.should == 1
+    page.warnings.first.message_id.should == '25'
   end
 end
 
