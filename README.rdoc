@@ -14,7 +14,7 @@ w3clove is a Ruby gem that can be installed on the usual way
 
 Pass it the url of an XML sitemap to be checked, and the filename where you want your report to be generated, like:
 
-  w3clove https://github.com/jaimeiniesta/w3clove/raw/master/spec/samples/sitemap.xml report.html
+  w3clove http://ryanair.com/sitemap.xml report.html
 
 This will validate all the URLs of your sitemap.xml (so be sure to pass it a short one or you'll wait for ages), and generate an HTML file with the full report.
 
