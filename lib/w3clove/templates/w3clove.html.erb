@@ -40,7 +40,10 @@
         <h2>POPULAR ERRORS</h2>
         <ul>
         <% errors.group_by {|e| e.message_id}.sort_by {|m,e| e.length}.reverse.each do |message_id, errors| %>
-          <li>error <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a> happens <%= errors.length %> times</li>
+          <li>
+            error <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
+            happens <%= errors.length %> times
+          </li>
         <% end %>
         </ul>
       <% end %>
@@ -49,7 +52,10 @@
         <h2>POPULAR WARNINGS</h2>
         <ul>
         <% warnings.group_by {|w| w.message_id}.sort_by {|m,w| w.length}.reverse.each do |message_id, warnings| %>
-          <li>warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a> found <%= warnings.length %> times</li>
+          <li>
+            warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
+            found <%= warnings.length %> times
+          </li>
         <% end %>
         </ul>
       <% end %>
@@ -67,7 +73,8 @@
             <ul class="page_errors">
             <% page.errors.each do |error| %>
               <li>
-                Error <a href="http://validator.w3.org/docs/errors.html#ve-<%= error.message_id %>"><%= error.message_id %></a> on line <%= error.line %>:
+                Error <a href="http://validator.w3.org/docs/errors.html#ve-<%= error.message_id %>"><%= error.message_id %></a>
+                on line <%= error.line %>:
                 <%= error.text %>
               </li>
             <% end %>
@@ -76,7 +83,8 @@
             <ul class="page_warnings">
             <% page.warnings.each do |warning| %>
               <li>
-                Warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= warning.message_id %>"><%= warning.message_id %></a> on line <%= warning.line %>:
+                Warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= warning.message_id %>"><%= warning.message_id %></a>
+                on line <%= warning.line %>:
                 <%= warning.text %>
               </li>
             <% end %>
@@ -87,7 +95,8 @@
     </div>
 
     <div id="footer">
-      <strong>w3clove</strong>@2011 <a href='http://jaimeiniesta.com'>Jaime Iniesta</a>. Get w3clove from <a href="http://github.com/jaimeiniesta/w3clove">github</a>.
+      <strong>w3clove</strong>@2011 <a href='http://jaimeiniesta.com'>Jaime Iniesta</a>.
+      Get w3clove from <a href="http://github.com/jaimeiniesta/w3clove">github</a>.
     </div>
   </body>
 </html>
