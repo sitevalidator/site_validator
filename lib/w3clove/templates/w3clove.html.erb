@@ -23,6 +23,8 @@
         border: 1px solid black;
         background-color: white;
       }
+      a { text-decoration: none; color: black;}
+      a:hover { text-decoration: underline; }
     </style>
   </head>
   <body>
@@ -31,17 +33,24 @@
     </div>
 
     <div id="main">
-      <h1>Report for <%= @url %></h1>
+      <h1>Report for <a href='<%= @url %>'><%= @url %></a></h1>
 
       <h2>SITEMAP SUMMARY</h2>
       <p>TOTAL: <%= errors.length %> errors, <%= warnings.length %> warnings.</p>
-
       <% if errors.length > 0 %>
         <h2>POPULAR ERRORS</h2>
         <ul>
         <% errors.group_by {|e| e.message_id}.sort_by {|m,e| e.length}.reverse.each do |message_id, errors| %>
           <% if message_id == 'html5' %>
             <li><%= errors.length %> HTML5 errors found</li>
+            <ul>
+            <% errors.select{|e| e.message_id == 'html5'}
+                 .group_by {|e| e.text}
+                 .sort_by {|m,e| e.length}
+                 .reverse.each do |text, errors| %>
+                <li><%= errors.length %> times: <strong><%= text %></strong></li>
+            <% end %>
+            </ul>
           <% elsif message_id %>
             <li>error <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
             happens <%= errors.length %> times</li>
@@ -56,6 +65,14 @@
         <% warnings.group_by {|w| w.message_id}.sort_by {|m,w| w.length}.reverse.each do |message_id, warnings| %>
           <% if message_id == 'html5' %>
             <li><%= warnings.length %> HTML5 warnings found</li>
+            <ul>
+            <% warnings.select{|w| w.message_id == 'html5'}
+                 .group_by {|w| w.text}
+                 .sort_by {|m,w| w.length}
+                 .reverse.each do |text, warnings| %>
+                <li><%= warnings.length %> times: <strong><%= text %></strong></li>
+            <% end %>
+            </ul>
           <% elsif message_id %>
             <li>warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
             found <%= warnings.length %> times</li>
@@ -69,13 +86,13 @@
         <h2>DETAILS PER PAGE</h2>
         <% processed_pages.each do |page| %>
           <div class='page'>
-            <h3><%= page.url %></h3>
+            <h3><a href='<%= page.url %>'><%= page.url %></a></h3>
             <p class='page_summary'>
               <%= "#{page.errors.length} errors, #{page.warnings.length} warnings" %>
             </p>
 
             <ul class="page_errors">
-            <% page.errors.each do |error| %>
+            <% page.errors.sort_by {|e| e.line.to_i}.each do |error| %>
               <li>
                 <% if error.message_id == 'html5' %>
                   HTML5 error on line <%= error.line %>:
@@ -90,7 +107,7 @@
             </ul>
 
             <ul class="page_warnings">
-            <% page.warnings.each do |warning| %>
+            <% page.warnings.sort_by {|w| w.line.to_i}.each do |warning| %>
               <li>
                 <% if warning.message_id == 'html5' %>
                   HTML5 warning on line <%= warning.line %>:
