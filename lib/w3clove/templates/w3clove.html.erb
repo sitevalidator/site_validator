@@ -40,10 +40,12 @@
         <h2>POPULAR ERRORS</h2>
         <ul>
         <% errors.group_by {|e| e.message_id}.sort_by {|m,e| e.length}.reverse.each do |message_id, errors| %>
-          <li>
-            error <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
-            happens <%= errors.length %> times
-          </li>
+          <% if message_id == 'html5' %>
+            <li><%= errors.length %> HTML5 errors found</li>
+          <% elsif message_id %>
+            <li>error <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
+            happens <%= errors.length %> times</li>
+          <% end %>
         <% end %>
         </ul>
       <% end %>
@@ -52,10 +54,12 @@
         <h2>POPULAR WARNINGS</h2>
         <ul>
         <% warnings.group_by {|w| w.message_id}.sort_by {|m,w| w.length}.reverse.each do |message_id, warnings| %>
-          <li>
-            warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
-            found <%= warnings.length %> times
-          </li>
+          <% if message_id == 'html5' %>
+            <li><%= warnings.length %> HTML5 warnings found</li>
+          <% elsif message_id %>
+            <li>warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
+            found <%= warnings.length %> times</li>
+          <% end %>
         <% end %>
         </ul>
       <% end %>
@@ -73,8 +77,13 @@
             <ul class="page_errors">
             <% page.errors.each do |error| %>
               <li>
-                Error <a href="http://validator.w3.org/docs/errors.html#ve-<%= error.message_id %>"><%= error.message_id %></a>
-                on line <%= error.line %>:
+                <% if error.message_id == 'html5' %>
+                  HTML5 error on line <%= error.line %>:
+                <% else %>
+                  Error <a href="http://validator.w3.org/docs/errors.html#ve-<%= error.message_id %>"><%= error.message_id %></a>
+                  on line <%= error.line %>:
+                <% end %>
+
                 <%= error.text %>
               </li>
             <% end %>
@@ -83,8 +92,13 @@
             <ul class="page_warnings">
             <% page.warnings.each do |warning| %>
               <li>
-                Warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= warning.message_id %>"><%= warning.message_id %></a>
-                on line <%= warning.line %>:
+                <% if warning.message_id == 'html5' %>
+                  HTML5 warning on line <%= warning.line %>:
+                <% else %>
+                  Warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= warning.message_id %>"><%= warning.message_id %></a>
+                  on line <%= warning.line %>:
+                <% end %>
+
                 <%= warning.text %>
               </li>
             <% end %>
