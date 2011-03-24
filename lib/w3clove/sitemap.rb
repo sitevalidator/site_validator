@@ -14,18 +14,27 @@ module W3Clove
       @url = url
     end
 
+    ##
+    # Returns the first 100 unique URLs from the sitemap
     def pages
-      @pages ||= pages_in_sitemap.uniq {|p| p.url}
+      @pages ||= pages_in_sitemap.uniq {|p| p.url}[0..99]
     end
 
+    ##
+    # Returns the combined validation errors of all the pages
     def errors
       @errors ||= pages.map {|p| p.errors}.flatten.reject {|e| e.nil?}
     end
 
+    ##
+    # Returns the combined validation warnings of all the pages
     def warnings
       @warnings ||= pages.map {|p| p.warnings}.flatten.reject {|e| e.nil?}
     end
 
+    ##
+    # Returns the binding, needed to paint the ERB template when generating
+    # the HTML report (see w3clove/reporter.rb)
     def get_binding
       binding
     end
