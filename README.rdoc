@@ -21,3 +21,7 @@ This will validate all the URLs of your sitemap.xml (so be sure to pass it a sho
 = Notes:
 
 This gem requires Ruby 1.9, and has been tested on Ruby 1.9.2
+
+= License:
+
+This is a free, open source project with a MIT license. See the file MIT-LICENSE for details.
