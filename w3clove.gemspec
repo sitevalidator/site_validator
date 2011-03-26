@@ -17,10 +17,10 @@ and outputs a detailed report with all errors and warnings }
   s.rubyforge_project = "w3clove"
 
   s.add_dependency 'w3c_validators', '1.0.2'
-  s.add_dependency 'nokogiri'
+  s.add_dependency 'nokogiri', '1.4.4'
 
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'mocha'
+  s.add_development_dependency 'rspec', '2.5.0'
+  s.add_development_dependency 'mocha', '0.9.12'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
