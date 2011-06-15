@@ -7,7 +7,7 @@ begin
   if ARGV.length == 2
     W3Clove::Validator.check(ARGV[0], ARGV[1])
   else
-    puts "USAGE:  w3clove  url_of_xml_sitemap  output_file.html"
+    puts "USAGE:  w3clove  url_of_sitemap  output_file.html"
   end
 rescue
   puts "There was an error processing your request"

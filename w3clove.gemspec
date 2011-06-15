@@ -18,6 +18,7 @@ and outputs a detailed report with all errors and warnings }
 
   s.add_dependency 'w3c_validators', '1.0.2'
   s.add_dependency 'nokogiri', '1.4.4'
+  s.add_dependency 'metainspector', '1.6.0'
 
   s.add_development_dependency 'rspec', '2.5.0'
   s.add_development_dependency 'mocha', '0.9.12'

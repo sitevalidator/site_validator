@@ -2,6 +2,7 @@
 
 require 'open-uri'
 require 'nokogiri'
+require 'metainspector'
 
 module W3Clove
   ##
@@ -41,11 +42,22 @@ module W3Clove
 
     private
 
+    # Scrapes the url in search of links.
+    # It first assumes it's an XML sitemap; if no locations found, it will try to
+    # scrape the links from HTML.
+    # For HTML sources, it will only get the links that start with the sitemap url, convert relative links
+    # to absolute links, and remove anchors from links
     def pages_in_sitemap
-      locations.map {|loc| W3Clove::Page.new(loc.text)}
+      pages = xml_locations.map {|loc| W3Clove::Page.new(loc.text)}
+      if pages.empty?
+        m     = MetaInspector.new(url)
+        links = m.absolute_links.select {|l| l.start_with?(m.url)}.map {|l| l.split('#')[0]}.uniq
+        pages = links.map {|link| W3Clove::Page.new(link)}
+      end
+      pages
     end
 
-    def locations
+    def xml_locations
       Nokogiri::XML(doc).css('loc')
     end
 

@@ -1,7 +1,5 @@
 = w3clove
 
-This is my {Ruby Mendicant University}[http://university.rubymendicant.com/] personal project, and is currently in alpha status.
-
 It's a site-wide markup validator, a Ruby gem that lets you validate a whole web site against the W3C Markup Validator, from the command line, and generate a comprehensive report of all errors found.
 
 = Installation:
@@ -12,15 +10,17 @@ w3clove is a Ruby gem that can be installed on the usual way
 
 = Usage:
 
-Pass it the url of an XML sitemap to be checked, and the filename where you want your report to be generated, like:
+Pass it a starting URL to be checked, and the filename where you want your report to be generated, like:
 
   w3clove http://ryanair.com/sitemap.xml report.html
 
-This will validate all the URLs of your sitemap.xml (so be sure to pass it a short one or you'll wait for ages), and generate an HTML file with the full report.
+This will validate all the internal URLs found on the starting URL, up to a maximum of 100 URLs, and generate an HTML file with the full report.
+
+You can pass w3clove an XML sitemap or the URL of a website; it will scrape it in search of URLs to validate.
 
 = Notes:
 
-This gem requires Ruby 1.9, and has been tested on Ruby 1.9.2
+This gem requires Ruby 1.9, and has been tested on Ruby 1.9.2-p0
 
 = License:
 
