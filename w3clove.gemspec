@@ -11,17 +11,16 @@ Gem::Specification.new do |s|
   s.email       = ["jaimeiniesta@gmail.com"]
   s.homepage    = "https://github.com/jaimeiniesta/w3clove/"
   s.summary     = %q{ command-line tool to validate the markup of a whole site against the W3C validator }
-  s.description = %q{ this tool allows you to check the markup validation of a whole site passing an XML sitemap,
+  s.description = %q{ this tool allows you to check the markup validation of a whole site,
 and outputs a detailed report with all errors and warnings }
 
-  s.rubyforge_project = "w3clove"
-
   s.add_dependency 'w3c_validators', '1.0.2'
-  s.add_dependency 'nokogiri', '1.4.4'
-  s.add_dependency 'metainspector', '1.6.0'
+  s.add_dependency 'nokogiri', '1.5.0'
+  s.add_dependency 'metainspector', '1.7.1'
 
   s.add_development_dependency 'rspec', '2.5.0'
   s.add_development_dependency 'mocha', '0.9.12'
+  s.add_development_dependency 'rake', '0.9.2'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
