@@ -2,6 +2,8 @@
 
 It's a site-wide markup validator, a Ruby gem that lets you validate a whole web site against the W3C Markup Validator, from the command line, and generate a comprehensive report of all errors found.
 
+This is the command-line version of http://w3clove.com
+
 = Installation:
 
 w3clove is a Ruby gem that can be installed on the usual way
