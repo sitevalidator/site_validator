@@ -3,137 +3,175 @@
   <head>
     <meta charset=utf-8>
     <title>W3Clove report for <%= @url %></title>
-    <link href='http://fonts.googleapis.com/css?family=Cabin+Sketch:bold' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+
     <style type="text/css">
-      #header, #main, #footer {
-        padding: 5px; margin: 5px;
+      /* Override some defaults */
+      html, body {
         background-color: #eee;
-        border: 1px solid black;
       }
-      #header, h1, h2, h3 {
-        font-family: 'Cabin Sketch', arial, serif;
+      body {
+        padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
       }
-      #header {
-        font-size: 2.5em;
+      .container > footer p {
+        text-align: center; /* center align it with the container */
       }
-      #footer {
-        font-size: .85em;
-        text-align: center;
+      .container {
+        width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
       }
-      .page {
-        padding: 5px; margin: 5px;
-        border: 1px solid black;
-        background-color: white;
+
+      /* The white background content wrapper */
+      .content {
+        background-color: #fff;
+        padding: 20px;
+        margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+        -webkit-border-radius: 0 0 6px 6px;
+           -moz-border-radius: 0 0 6px 6px;
+                border-radius: 0 0 6px 6px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                box-shadow: 0 1px 2px rgba(0,0,0,.15);
       }
-      a { text-decoration: none; color: black;}
-      a:hover { text-decoration: underline; }
+
+      /* Page header tweaks */
+      .page-header {
+        background-color: #f5f5f5;
+        padding: 20px 20px 10px;
+        margin: -20px -20px 20px;
+      }
+
+      /* Give a quick and non-cross-browser friendly divider */
+      .content .span4 {
+        margin-left: 0;
+        padding-left: 19px;
+        border-left: 1px solid #eee;
+      }
+
+      .topbar .btn {
+        border: 0;
+      }
+
     </style>
   </head>
   <body>
-    <div id="header">
-      W3Clove :: site-wide markup validation
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="http://w3clove.com"><strong>W3C<span style="color:pink;">love</span></strong></a>
+          <ul class="nav" data-dropdown="dropdown" >
+            <li><a href="http://w3clove.com/faqs">FAQs</a></li>
+            <li><a href="http://w3clove.com/contact">Contact</a></li>
+            <li><a href="http://w3clove.com/donate">Donate</a></li>
+            <li><a href="http://w3clove.com/supporters">Supporters</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-    <div id="main">
-      <h1>Report for <a href='<%= @url %>'><%= @url %></a></h1>
+    <div class="container">
+      <div class="content">
+        <h1>MARKUP VALIDATION FOR <a href='<%= @url %>'><%= @url %></a></h1>
 
-      <h2>SITEMAP SUMMARY</h2>
-      <p>TOTAL: <%= errors.length %> errors, <%= warnings.length %> warnings.</p>
-      <% if errors.length > 0 %>
-        <h2>POPULAR ERRORS</h2>
-        <ul>
-        <% errors.group_by {|e| e.message_id}.sort_by {|m,e| e.length}.reverse.each do |message_id, errors| %>
-          <% if message_id == 'html5' %>
-            <li><%= errors.length %> HTML5 errors found</li>
-            <li>
-              <ul>
-              <% errors.select{|e| e.message_id == 'html5'}
-                   .group_by {|e| e.text}
-                   .sort_by {|m,e| e.length}
-                   .reverse.each do |text, errors| %>
-                  <li><%= errors.length %> times: <strong><%= text %></strong></li>
+        <h2>SITEMAP SUMMARY</h2>
+        <p>TOTAL: <%= errors.length %> errors, <%= warnings.length %> warnings.</p>
+
+        <% if errors.length > 0 %>
+          <h2>POPULAR ERRORS</h2>
+          <ul>
+          <% errors.group_by {|e| e.message_id}.sort_by {|m,e| e.length}.reverse.each do |message_id, errors| %>
+            <% if message_id == 'html5' %>
+              <li><%= errors.length %> HTML5 errors found</li>
+              <li>
+                <ul>
+                <% errors.select{|e| e.message_id == 'html5'}
+                     .group_by {|e| e.text}
+                     .sort_by {|m,e| e.length}
+                     .reverse.each do |text, errors| %>
+                    <li><%= errors.length %> times: <strong><%= CGI::escapeHTML(text) %></strong></li>
+                <% end %>
+                </ul>
+              </li>
+            <% elsif message_id %>
+              <li>error <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
+              happens <%= errors.length %> times</li>
+            <% end %>
+          <% end %>
+          </ul>
+        <% end %>
+
+        <% if warnings.length > 0 %>
+          <h2>POPULAR WARNINGS</h2>
+          <ul>
+          <% warnings.group_by {|w| w.message_id}.sort_by {|m,w| w.length}.reverse.each do |message_id, warnings| %>
+            <% if message_id == 'html5' %>
+              <li><%= warnings.length %> HTML5 warnings found</li>
+              <li>
+                <ul>
+                <% warnings.select{|w| w.message_id == 'html5'}
+                     .group_by {|w| w.text}
+                     .sort_by {|m,w| w.length}
+                     .reverse.each do |text, warnings| %>
+                    <li><%= warnings.length %> times: <strong><%= CGI::escapeHTML(text) %></strong></li>
+                <% end %>
+                </ul>
+              </li>
+            <% elsif message_id %>
+              <li>warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
+              found <%= warnings.length %> times</li>
+            <% end %>
+          <% end %>
+          </ul>
+        <% end %>
+
+        <% processed_pages = pages.select{|p| !p.exception} %>
+        <% if processed_pages.size > 0 %>
+          <h2>DETAILS PER PAGE</h2>
+          <% processed_pages.each do |page| %>
+            <div class='page'>
+              <h3><a href='<%= page.url %>'><%= page.url %></a></h3>
+              <p class='page_summary'>
+                <%= "#{page.errors.length} errors, #{page.warnings.length} warnings" %>
+              </p>
+
+              <ul class="page_errors">
+              <% page.errors.sort_by {|e| e.line.to_i}.each do |error| %>
+                <li>
+                  <% if error.message_id == 'html5' %>
+                    HTML5 error on line <%= error.line %>:
+                  <% else %>
+                    Error <a href="http://validator.w3.org/docs/errors.html#ve-<%= error.message_id %>"><%= error.message_id %></a>
+                    on line <%= error.line %>:
+                  <% end %>
+
+                  <%= CGI::escapeHTML(error.text) %>
+                </li>
               <% end %>
               </ul>
-            </li>
-          <% elsif message_id %>
-            <li>error <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
-            happens <%= errors.length %> times</li>
-          <% end %>
-        <% end %>
-        </ul>
-      <% end %>
 
-      <% if warnings.length > 0 %>
-        <h2>POPULAR WARNINGS</h2>
-        <ul>
-        <% warnings.group_by {|w| w.message_id}.sort_by {|m,w| w.length}.reverse.each do |message_id, warnings| %>
-          <% if message_id == 'html5' %>
-            <li><%= warnings.length %> HTML5 warnings found</li>
-            <li>
-              <ul>
-              <% warnings.select{|w| w.message_id == 'html5'}
-                   .group_by {|w| w.text}
-                   .sort_by {|m,w| w.length}
-                   .reverse.each do |text, warnings| %>
-                  <li><%= warnings.length %> times: <strong><%= text %></strong></li>
+              <ul class="page_warnings">
+              <% page.warnings.sort_by {|w| w.line.to_i}.each do |warning| %>
+                <li>
+                  <% if warning.message_id == 'html5' %>
+                    HTML5 warning on line <%= warning.line %>:
+                  <% else %>
+                    Warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= warning.message_id %>"><%= warning.message_id %></a>
+                    on line <%= warning.line %>:
+                  <% end %>
+
+                  <%= CGI::escapeHTML(warning.text) %>
+                </li>
               <% end %>
               </ul>
-            </li>
-          <% elsif message_id %>
-            <li>warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
-            found <%= warnings.length %> times</li>
+            </div>
           <% end %>
         <% end %>
-        </ul>
-      <% end %>
 
-      <% processed_pages = pages.select{|p| !p.exception} %>
-      <% if processed_pages.size > 0 %>
-        <h2>DETAILS PER PAGE</h2>
-        <% processed_pages.each do |page| %>
-          <div class='page'>
-            <h3><a href='<%= page.url %>'><%= page.url %></a></h3>
-            <p class='page_summary'>
-              <%= "#{page.errors.length} errors, #{page.warnings.length} warnings" %>
-            </p>
-
-            <ul class="page_errors">
-            <% page.errors.sort_by {|e| e.line.to_i}.each do |error| %>
-              <li>
-                <% if error.message_id == 'html5' %>
-                  HTML5 error on line <%= error.line %>:
-                <% else %>
-                  Error <a href="http://validator.w3.org/docs/errors.html#ve-<%= error.message_id %>"><%= error.message_id %></a>
-                  on line <%= error.line %>:
-                <% end %>
-
-                <%= error.text %>
-              </li>
-            <% end %>
-            </ul>
-
-            <ul class="page_warnings">
-            <% page.warnings.sort_by {|w| w.line.to_i}.each do |warning| %>
-              <li>
-                <% if warning.message_id == 'html5' %>
-                  HTML5 warning on line <%= warning.line %>:
-                <% else %>
-                  Warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= warning.message_id %>"><%= warning.message_id %></a>
-                  on line <%= warning.line %>:
-                <% end %>
-
-                <%= warning.text %>
-              </li>
-            <% end %>
-            </ul>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
-
-    <div id="footer">
-      <strong>w3clove</strong>@2011 <a href='http://jaimeiniesta.com'>Jaime Iniesta</a>.
-      Get w3clove from <a href="http://github.com/jaimeiniesta/w3clove">github</a>.
+        <footer>
+          <p>This markup validation report has been generated using the <a href="https://github.com/jaimeiniesta/w3clove">W3Clove</a> gem.</p>
+          <p>You can also find an online version that lets you store the results and re-check the URLs later, at <a href="http://w3clove.com">w3clove.com</a>.</p>
+          <p><strong>W3Clove</strong> is a lovely site-wide markup validator. We're not associated with the W3C but we love it!</p>
+        </footer>
+      </div>
     </div>
   </body>
 </html>
