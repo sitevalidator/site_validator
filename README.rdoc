@@ -1,8 +1,10 @@
-= w3clove
+= w3clove {<img src="http://travis-ci.org/jaimeiniesta/w3clove.png" />}[http://travis-ci.org/jaimeiniesta/w3clove]
 
-It's a site-wide markup validator, a Ruby gem that lets you validate a whole web site against the W3C Markup Validator, from the command line, and generate a comprehensive report of all errors found.
+Site-wide markup validator. Validate a whole web site on the W3C Markup Validator, from the command line, and generate a comprehensive report of all errors found.
 
 This is the command-line version of http://w3clove.com
+
+http://w3clove.com/images/w3clove_gem.png
 
 = Installation:
 
