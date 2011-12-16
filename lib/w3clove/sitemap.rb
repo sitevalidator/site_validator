@@ -53,7 +53,8 @@ module W3Clove
       pages = xml_locations.map {|loc| W3Clove::Page.new(loc.text)}
       if pages.empty?
         m     = MetaInspector.new(url)
-        links = ([m.url] + m.absolute_links.select {|l| l.start_with?(m.url)}.map {|l| l.split('#')[0]}).uniq
+        links = m.absolute_links.select {|l| l.start_with?(m.url)}.map {|l| l.split('#')[0]}.uniq
+        links << m.url unless (links.include?(m.url) || links.include?("#{m.url}/"))
         pages = links.map {|link| W3Clove::Page.new(link)}
       end
       pages
