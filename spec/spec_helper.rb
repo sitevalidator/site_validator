@@ -3,8 +3,16 @@
 require_relative '../lib/w3clove'
 require_relative './mocks/mocked_validator'
 require 'mocha'
+require 'fakeweb'
 
 $samples_dir = File.dirname(__FILE__) + '/samples'
+FakeWeb.register_uri(:get, "http://ryanair.com/sitemap.xml", :response => open("#{$samples_dir}/sitemap.xml").read)
+FakeWeb.register_uri(:get, "http://guides.rubyonrails.org", :response => open("#{$samples_dir}/guides.rubyonrails.org.html").read)
+FakeWeb.register_uri(:get, "http://eparreno.com", :response => open("#{$samples_dir}/eparreno.com.html").read)
+FakeWeb.register_uri(:get, "http://www.eparreno.com", :response => open("#{$samples_dir}/eparreno.com.html").read)
+FakeWeb.register_uri(:get, "http://zigotica.com", :response => open("#{$samples_dir}/zigotica.com.html").read)
+FakeWeb.register_uri(:get, "http://protocol-relative.com", :response => open("#{$samples_dir}/protocol_relative.html").read)
+FakeWeb.register_uri(:get, "https://protocol-relative.com", :response => open("#{$samples_dir}/protocol_relative.html").read)
 
 def message_text(message_id)
   message_texts = {
