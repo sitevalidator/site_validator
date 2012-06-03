@@ -13,6 +13,7 @@ FakeWeb.register_uri(:get, "http://www.eparreno.com", :response => open("#{$samp
 FakeWeb.register_uri(:get, "http://zigotica.com", :response => open("#{$samples_dir}/zigotica.com.html").read)
 FakeWeb.register_uri(:get, "http://protocol-relative.com", :response => open("#{$samples_dir}/protocol_relative.html").read)
 FakeWeb.register_uri(:get, "https://protocol-relative.com", :response => open("#{$samples_dir}/protocol_relative.html").read)
+FakeWeb.register_uri(:get, "http://example.com/exclusions", :response => open("#{$samples_dir}/exclusions.html").read)
 
 def message_text(message_id)
   message_texts = {

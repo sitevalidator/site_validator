@@ -10,6 +10,7 @@ describe W3Clove::Sitemap do
     @sitemap_with_trailing_slash          = W3Clove::Sitemap.new('http://eparreno.com')
     @sitemap_with_protocol_relative       = W3Clove::Sitemap.new('http://protocol-relative.com')
     @sitemap_with_protocol_relative_https = W3Clove::Sitemap.new('https://protocol-relative.com')
+    @sitemap_for_exclusions               = W3Clove::Sitemap.new('http://example.com/exclusions')
 
     MarkupValidator.any_instance.stubs(:validate_uri).returns(stubbed_validator_results)
   end
@@ -73,6 +74,12 @@ describe W3Clove::Sitemap do
       urls = @sitemap_with_trailing_slash.pages.collect(&:url)
       urls.should      include 'http://eparreno.com/'
       urls.should_not  include 'http://eparreno.com'
+    end
+
+    it "should exclude non-html pages" do
+      @sitemap_for_exclusions.pages.length.should == 2
+      @sitemap_for_exclusions.pages.first.url.should == 'http://example.com/exclusions/'
+      @sitemap_for_exclusions.pages.last.url.should  == 'http://example.com/exclusions/faqs'
     end
 
     context "protocol-relative links" do

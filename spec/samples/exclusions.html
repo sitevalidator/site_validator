@@ -1,0 +1,43 @@
+HTTP/1.1 200 OK
+Server: nginx/0.7.67
+Date: Fri, 18 Nov 2011 21:46:46 GMT
+Content-Type: text/html
+Connection: keep-alive
+Last-Modified: Mon, 14 Nov 2011 16:53:18 GMT
+Content-Length: 4987
+X-Varnish: 2000423390
+Age: 0
+Via: 1.1 varnish
+
+<html>
+  <head>
+    <title>Examples of exclusions</title>
+  </head>
+  <body>
+    <a href="/">Front page</a><br />
+    <a href="/faqs">FAQs</a><br />
+
+    <a href="/file.gif">link</a><br />
+    <a href="/file.GIF">link</a><br />
+    <a href="/file.gif?size=thumb">link</a><br />
+    <a href="/file.jpg">link</a><br />
+    <a href="/file.jpeg">link</a><br />
+    <a href="/file.png">link</a><br />
+    <a href="/file.tiff">link</a><br />
+    <a href="/file.bmp">link</a><br />
+
+    <a href="/file.pdf">link</a><br />
+    <a href="/file.txt">link</a><br />
+    <a href="/file.doc">link</a><br />
+    <a href="/file.xls">link</a><br />
+
+    <a href="/file.wav">link</a><br />
+    <a href="/file.mp3">link</a><br />
+    <a href="/file.ogg">link</a><br />
+
+    <a href="mailto:user@example.com">link</a><br />
+    <a href="ftp://user:password@example.com">link</a><br />
+    <a href="telnet://user:password@example.com">link</a><br />
+    <a href="javascript:alert('hey');">link</a><br />
+  </body>
+</html>
