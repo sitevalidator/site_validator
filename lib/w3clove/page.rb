@@ -61,7 +61,13 @@ module W3Clove
     ##
     # Gets the validations for this page, ensuring it times out soon
     def validations
-      @validations ||= Timeout::timeout(10) { MarkupValidator.new.validate_uri(url) }
+      @validations ||= Timeout::timeout(10) { markup_validator.validate_uri(url) }
+    end
+
+    ##
+    # Returns an instance of MarkupValidator, with the URL set to the one in ENV or its default
+    def markup_validator
+      @markup_validator ||= MarkupValidator.new(:validator_uri => ENV['W3C_MARKUP_VALIDATOR_URI'] || 'http://validator.w3.org/check')
     end
   end
 end
