@@ -16,9 +16,9 @@ module W3Clove
     end
 
     ##
-    # Returns the first 100 unique URLs from the sitemap
+    # Returns the first 250 unique URLs from the sitemap
     def pages
-      @pages ||= pages_in_sitemap.uniq {|p| p.url}[0..99]
+      @pages ||= pages_in_sitemap.uniq {|p| p.url}[0..249]
     end
 
     ##
