@@ -15,8 +15,8 @@ module W3Clove
     # Shows progress on dot-style (...F...FFE..). A dot is a valid page,
     # an F is a page with errors, and an E is an exception
     # After the checking is done, a detailed summary is written to filename
-    def check(url, filename)
-      sitemap = W3Clove::Sitemap.new(url)
+    def check(url, filename, timeout)
+      sitemap = W3Clove::Sitemap.new(url, timeout.to_f)
       say "Validating #{sitemap.pages.length} pages"
 
       sitemap.pages.each do |page|

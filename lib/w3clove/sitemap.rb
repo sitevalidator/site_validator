@@ -3,16 +3,18 @@
 require 'open-uri'
 require 'nokogiri'
 require 'metainspector'
+require 'timeout'
 
 module W3Clove
   ##
   # A sitemap has an URL, and holds a collection of pages to be validated
   #
   class Sitemap
-    attr_accessor :url
+    attr_accessor :url, :timeout
 
-    def initialize(url)
-      @url = url
+    def initialize(url, timeout = 20)
+      @url      = url
+      @timeout  = timeout
     end
 
     ##
@@ -53,7 +55,7 @@ module W3Clove
     def pages_in_sitemap
       pages = xml_locations.map {|loc| W3Clove::Page.new(loc.text)}
       if pages.empty?
-        m     = MetaInspector.new(url)
+        m     = MetaInspector.new(url, timeout)
         links = m.absolute_links.select {|l| l.start_with?(m.url) && looks_like_html?(l)}.map {|l| l.split('#')[0]}.uniq
         links << m.url unless (links.include?(m.url) || links.include?("#{m.url}/"))
         pages = links.map {|link| W3Clove::Page.new(link)}

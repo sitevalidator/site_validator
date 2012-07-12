@@ -10,10 +10,11 @@ module W3Clove
   # In case of an exception happens when validating, it is tracked
   #
   class Page
-    attr_accessor :url, :exception
+    attr_accessor :url, :timeout, :exception
 
-    def initialize(url)
-      @url = url
+    def initialize(url, timeout = 20)
+      @url      = url
+      @timeout  = timeout
     end
 
     ##
@@ -61,7 +62,7 @@ module W3Clove
     ##
     # Gets the validations for this page, ensuring it times out soon
     def validations
-      @validations ||= Timeout::timeout(10) { markup_validator.validate_uri(url) }
+      @validations ||= Timeout::timeout(timeout) { markup_validator.validate_uri(url) }
     end
 
     ##
