@@ -49,15 +49,23 @@ module W3Clove
     # It first assumes it's an XML sitemap; if no locations found, it will try to
     # scrape the links from HTML.
     #
-    # For HTML sources, it will only get the links that start with the sitemap url, convert relative links
+    # For HTML sources, it will only get the links that start with the sitemap root url, convert relative links
     # to absolute links, remove anchors from links, include the sitemap url, and exclude links that don't
     # seem to point to HTML (like images, multimedia, text, javascript...)
     def pages_in_sitemap
       pages = xml_locations.map {|loc| W3Clove::Page.new(loc.text)}
       if pages.empty?
         m     = MetaInspector.new(url, timeout)
-        links = m.absolute_links.select {|l| l.start_with?(m.url) && looks_like_html?(l)}.map {|l| l.split('#')[0]}.uniq
-        links << m.url unless (links.include?(m.url) || links.include?("#{m.url}/"))
+        links = [m.url]
+
+        m.links.select {|l| l.start_with?(m.root_url) && looks_like_html?(l)}.map {|l| l.split('#')[0]}.uniq.each do |link|
+          if link[-1,1] == "/"
+            links << link unless (links.include?(link) || links.include?(link.chop))
+          else
+            links << link unless (links.include?(link) || links.include?("#{link}/"))
+          end
+        end
+
         pages = links.map {|link| W3Clove::Page.new(link)}
       end
       pages
