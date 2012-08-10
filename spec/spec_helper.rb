@@ -15,6 +15,7 @@ FakeWeb.register_uri(:get, "http://protocol-relative.com", :response => open("#{
 FakeWeb.register_uri(:get, "https://protocol-relative.com", :response => open("#{$samples_dir}/protocol_relative.html").read)
 FakeWeb.register_uri(:get, "http://example.com/exclusions", :response => open("#{$samples_dir}/exclusions.html").read)
 FakeWeb.register_uri(:get, "http://w3clove.com/faqs", :response => open("#{$samples_dir}/w3clove_faqs.response").read)
+FakeWeb.register_uri(:get, "http://example.com/international", :response => open("#{$samples_dir}/international.response").read)
 
 def message_text(message_id)
   message_texts = {

@@ -74,7 +74,7 @@ module W3Clove
     # Tells if the given url looks like an HTML page.
     # That is, it does not look like javascript, image, pdf...
     def looks_like_html?(url)
-      u         = URI.parse(url)
+      u         = URI.parse(URI.encode(url))
       scheme    = u.scheme
       extension = u.path.split(".").last
 

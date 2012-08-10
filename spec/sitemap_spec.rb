@@ -12,6 +12,7 @@ describe W3Clove::Sitemap do
     @sitemap_with_protocol_relative_https = W3Clove::Sitemap.new('https://protocol-relative.com')
     @sitemap_for_exclusions               = W3Clove::Sitemap.new('http://example.com/exclusions')
     @sitemap_for_absolute_urls            = W3Clove::Sitemap.new('http://w3clove.com/faqs')
+    @sitemap_international                = W3Clove::Sitemap.new('http://example.com/international')
 
     MarkupValidator.any_instance.stubs(:validate_uri).returns(stubbed_validator_results)
   end
@@ -104,6 +105,13 @@ describe W3Clove::Sitemap do
       @sitemap_for_exclusions.pages[2].url.should == 'http://example.com/faqs'
     end
 
+    it "should not crash when URLs have international characters" do
+      @sitemap_international.pages.length.should == 3
+      @sitemap_international.pages[0].url.should == 'http://example.com/international'
+      @sitemap_international.pages[1].url.should == 'http://example.com/romanée'
+      @sitemap_international.pages[2].url.should == 'http://example.com/españa'
+    end
+
     context "protocol-relative links" do
       it "should include only internal links" do
         @sitemap_with_protocol_relative.pages.size.should == 3
@@ -143,4 +151,4 @@ describe W3Clove::Sitemap do
       end
     end
   end
-end
+end# -*- encoding: utf-8 -*-
