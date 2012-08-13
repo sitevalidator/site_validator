@@ -17,5 +17,13 @@ Via: 1.1 varnish
     <a href="http://example.com/international">index</a>
     <a href="http://example.com/romanée">Romanée</a>
     <a href="http://example.com/españa">España</a>
+    <a href="/romanée-2">Romanée 2</a>
+    <a href="/españa-2">España 2</a>
+    <a href="/españa-2#anchor1">Anchor 1, should be ignored</a>
+    <a href="/españa-2#anchor2">Anchor 2, should be ignored</a>
+    <a href="/search?q=españa">Search España</a>
+    <a href="/españa-3#top">España 3 at top</a>
+    <a href="/search?q=camión#memé">Search Camión at Memé</a>
+    <a href="white space">White space</a>
   </body>
 </html>
