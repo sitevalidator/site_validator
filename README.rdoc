@@ -1,4 +1,4 @@
-= w3clove {<img src="http://travis-ci.org/jaimeiniesta/w3clove.png" />}[http://travis-ci.org/jaimeiniesta/w3clove]
+= w3clove {<img src="http://travis-ci.org/jaimeiniesta/w3clove.png" />}[http://travis-ci.org/jaimeiniesta/w3clove] {<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/jaimeiniesta/w3clove]
 
 Site-wide markup validator. Validate a whole web site on the W3C Markup Validator, from the command line, and generate a comprehensive report of all errors found.
 
