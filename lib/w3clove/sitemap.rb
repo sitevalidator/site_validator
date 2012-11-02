@@ -53,7 +53,7 @@ module W3Clove
     # to absolute links, remove anchors from links, include the sitemap url, and exclude links that don't
     # seem to point to HTML (like images, multimedia, text, javascript...)
     def pages_in_sitemap
-      pages = xml_locations.map {|loc| W3Clove::Page.new(loc.text)}
+      pages = xml_locations.select {|loc| looks_like_html?(loc.text)}.map {|loc| W3Clove::Page.new(loc.text)}
       if pages.empty?
         m     = MetaInspector.new(url, timeout)
         links = [m.url]
@@ -75,10 +75,10 @@ module W3Clove
     # That is, it does not look like javascript, image, pdf...
     def looks_like_html?(url)
       u         = URI.parse(URI.encode(url))
-      scheme    = u.scheme
-      extension = u.path.split(".").last
+      scheme    = u.scheme                if u.scheme
+      extension = u.path.split(".").last  if u.path
 
-      (scheme =~ /http[s]?/i) && (extension !~ /gif|jpg|jpeg|png|tiff|bmp|txt|pdf|doc|xls|wav|mp3|ogg/i)
+      (scheme && extension) && (scheme =~ /http[s]?/i) && (extension !~ /gif|jpg|jpeg|png|tiff|bmp|txt|pdf|doc|rtf|xml|xls|csv|wav|mp3|ogg/i)
     end
 
     def xml_locations

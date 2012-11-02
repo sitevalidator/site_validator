@@ -14,6 +14,7 @@ FakeWeb.register_uri(:get, "http://zigotica.com", :response => open("#{$samples_
 FakeWeb.register_uri(:get, "http://protocol-relative.com", :response => open("#{$samples_dir}/protocol_relative.html").read)
 FakeWeb.register_uri(:get, "https://protocol-relative.com", :response => open("#{$samples_dir}/protocol_relative.html").read)
 FakeWeb.register_uri(:get, "http://example.com/exclusions", :response => open("#{$samples_dir}/exclusions.html").read)
+FakeWeb.register_uri(:get, "http://example.com/exclusions.xml", :response => open("#{$samples_dir}/exclusions.xml").read)
 FakeWeb.register_uri(:get, "http://w3clove.com/faqs", :response => open("#{$samples_dir}/w3clove_faqs.response").read)
 FakeWeb.register_uri(:get, "http://example.com/international", :response => open("#{$samples_dir}/international.response").read)
 

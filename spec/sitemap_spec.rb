@@ -11,6 +11,7 @@ describe W3Clove::Sitemap do
     @sitemap_with_protocol_relative       = W3Clove::Sitemap.new('http://protocol-relative.com')
     @sitemap_with_protocol_relative_https = W3Clove::Sitemap.new('https://protocol-relative.com')
     @sitemap_for_exclusions               = W3Clove::Sitemap.new('http://example.com/exclusions')
+    @sitemap_for_exclusions_xml           = W3Clove::Sitemap.new('http://example.com/exclusions.xml')
     @sitemap_for_absolute_urls            = W3Clove::Sitemap.new('http://w3clove.com/faqs')
     @sitemap_international                = W3Clove::Sitemap.new('http://example.com/international')
 
@@ -98,11 +99,17 @@ describe W3Clove::Sitemap do
       urls.should_not  include 'http://w3clove.com/faqs/'
     end
 
-    it "should exclude non-html pages" do
+    it "should exclude non-html pages from HTML sitemaps" do
       @sitemap_for_exclusions.pages.length.should == 3
       @sitemap_for_exclusions.pages[0].url.should == 'http://example.com/exclusions'
       @sitemap_for_exclusions.pages[1].url.should == 'http://example.com/'
       @sitemap_for_exclusions.pages[2].url.should == 'http://example.com/faqs'
+    end
+
+    it "should exclude non-html pages from XML sitemaps" do
+      @sitemap_for_exclusions_xml.pages.length.should == 2
+      @sitemap_for_exclusions_xml.pages[0].url.should == 'http://example.com/'
+      @sitemap_for_exclusions_xml.pages[1].url.should == 'http://example.com/faqs'
     end
 
     it "should not crash when URLs have international characters" do
