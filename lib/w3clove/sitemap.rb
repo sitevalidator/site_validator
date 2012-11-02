@@ -78,7 +78,7 @@ module W3Clove
       scheme    = u.scheme                if u.scheme
       extension = u.path.split(".").last  if u.path
 
-      (scheme && extension) && (scheme =~ /http[s]?/i) && (extension !~ /gif|jpg|jpeg|png|tiff|bmp|txt|pdf|doc|rtf|xml|xls|csv|wav|mp3|ogg/i)
+      (scheme =~ /http[s]?/i) && (extension !~ /gif|jpg|jpeg|png|tiff|bmp|txt|pdf|doc|rtf|xml|xls|csv|wav|mp3|ogg/i)
     end
 
     def xml_locations
