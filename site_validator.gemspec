@@ -4,7 +4,7 @@ require File.expand_path('../lib/site_validator/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Jaime Iniesta"]
   gem.email         = ["jaimeiniesta@gmail.com"]
-  gem.description   = %q{this gem has been discontinued, from now on you should use the site_validator gem}
+  gem.description   = %q{command-line tool to validate the markup of a whole site against the W3C validator}
   gem.summary       = %q{command-line tool to validate the markup of a whole site against the W3C validator}
   gem.homepage      = "https://github.com/jaimeiniesta/site_validator/"
 
