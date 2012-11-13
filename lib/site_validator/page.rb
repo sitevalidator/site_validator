@@ -4,7 +4,7 @@ require 'timeout'
 require 'w3c_validators'
 include W3CValidators
 
-module W3Clove
+module SiteValidator
   ##
   # A page has an URL to be validated, and a collection of errors
   # In case of an exception happens when validating, it is tracked
@@ -35,7 +35,7 @@ module W3Clove
       @errors ||= validations.errors
                     .select {|e| e.message_id && !e.message_id.empty?}
                     .map do |e|
-        W3Clove::Message.new(e.message_id, e.line, e.message, :error)
+        SiteValidator::Message.new(e.message_id, e.line, e.message, :error)
       end
     rescue Exception => e
       @exception = e.to_s
@@ -50,7 +50,7 @@ module W3Clove
       @warnings ||= validations.warnings
                      .select {|w| w.message_id && !w.message_id.empty?}
                      .map do |w|
-        W3Clove::Message.new(w.message_id, w.line, w.message, :warning)
+        SiteValidator::Message.new(w.message_id, w.line, w.message, :warning)
       end
     rescue Exception => e
       @exception = e.to_s

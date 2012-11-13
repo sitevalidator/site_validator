@@ -5,7 +5,7 @@ require 'nokogiri'
 require 'metainspector'
 require 'timeout'
 
-module W3Clove
+module SiteValidator
   ##
   # A sitemap has an URL, and holds a collection of pages to be validated
   #
@@ -37,7 +37,7 @@ module W3Clove
 
     ##
     # Returns the binding, needed to paint the ERB template when generating
-    # the HTML report (see w3clove/reporter.rb)
+    # the HTML report (see site_validator/reporter.rb)
     def get_binding
       binding
     end
@@ -53,7 +53,7 @@ module W3Clove
     # to absolute links, remove anchors from links, include the sitemap url, and exclude links that don't
     # seem to point to HTML (like images, multimedia, text, javascript...)
     def pages_in_sitemap
-      pages = xml_locations.select {|loc| looks_like_html?(loc.text)}.map {|loc| W3Clove::Page.new(loc.text)}
+      pages = xml_locations.select {|loc| looks_like_html?(loc.text)}.map {|loc| SiteValidator::Page.new(loc.text)}
       if pages.empty?
         m     = MetaInspector.new(url, timeout)
         links = [m.url]
@@ -66,7 +66,7 @@ module W3Clove
           end
         end
 
-        pages = links.map {|link| W3Clove::Page.new(link)}
+        pages = links.map {|link| SiteValidator::Page.new(link)}
       end
       pages
     end

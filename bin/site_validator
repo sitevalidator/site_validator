@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# -*- encoding: utf-8 -*-
+
+require_relative '../lib/site_validator'
+
+begin
+  if ARGV.length >= 2
+    SiteValidator::Validator.check(ARGV[0], ARGV[1], ARGV[2])
+  else
+    puts "USAGE:  site_validator  url_of_sitemap  output_file.html"
+    puts " OR "
+    puts "USAGE:  site_validator  url_of_sitemap  output_file.html  timeout_in_seconds"
+  end
+rescue
+  puts "There was an error processing your request"
+end

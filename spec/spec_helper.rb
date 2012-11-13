@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-require_relative '../lib/w3clove'
+require_relative '../lib/site_validator'
 require_relative './mocks/mocked_validator'
 require 'mocha'
 require 'fakeweb'
@@ -15,7 +15,7 @@ FakeWeb.register_uri(:get, "http://protocol-relative.com", :response => open("#{
 FakeWeb.register_uri(:get, "https://protocol-relative.com", :response => open("#{$samples_dir}/protocol_relative.html").read)
 FakeWeb.register_uri(:get, "http://example.com/exclusions", :response => open("#{$samples_dir}/exclusions.html").read)
 FakeWeb.register_uri(:get, "http://example.com/exclusions.xml", :response => open("#{$samples_dir}/exclusions.xml").read)
-FakeWeb.register_uri(:get, "http://w3clove.com/faqs", :response => open("#{$samples_dir}/w3clove_faqs.response").read)
+FakeWeb.register_uri(:get, "http://markupvalidator.com/faqs", :response => open("#{$samples_dir}/markup_validator_faqs.response").read)
 FakeWeb.register_uri(:get, "http://example.com/international", :response => open("#{$samples_dir}/international.response").read)
 
 def message_text(message_id)
@@ -30,7 +30,7 @@ def message_text(message_id)
 end
 
 def stubbed_validator_results(with_errors=true, with_warnings=true)
-  fake_validator = W3Clove::MockedValidator.new
+  fake_validator = SiteValidator::MockedValidator.new
 
   if with_errors
     fake_validator.add_error('25', '92', message_text('25'))
