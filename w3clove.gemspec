@@ -4,10 +4,9 @@ require File.expand_path('../lib/w3clove/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Jaime Iniesta"]
   gem.email         = ["jaimeiniesta@gmail.com"]
-  gem.description   = %q{this tool allows you to check the markup validation of a whole site,
-and outputs a detailed report with all errors and warnings}
+  gem.description   = %q{this gem has been discontinued, from now on you should use the site_validator gem}
   gem.summary       = %q{command-line tool to validate the markup of a whole site against the W3C validator}
-  gem.homepage      = "https://github.com/jaimeiniesta/w3clove/"
+  gem.homepage      = "https://github.com/jaimeiniesta/site_validator/"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
