@@ -2,18 +2,18 @@
 
 require_relative 'spec_helper'
 
-describe W3Clove::Sitemap do
+describe SiteValidator::Sitemap do
   before(:each) do
-    @sitemap                              = W3Clove::Sitemap.new('http://ryanair.com/sitemap.xml')
-    @sitemap_html                         = W3Clove::Sitemap.new('http://guides.rubyonrails.org')
-    @sitemap_no_links                     = W3Clove::Sitemap.new('http://zigotica.com')
-    @sitemap_with_trailing_slash          = W3Clove::Sitemap.new('http://eparreno.com')
-    @sitemap_with_protocol_relative       = W3Clove::Sitemap.new('http://protocol-relative.com')
-    @sitemap_with_protocol_relative_https = W3Clove::Sitemap.new('https://protocol-relative.com')
-    @sitemap_for_exclusions               = W3Clove::Sitemap.new('http://example.com/exclusions')
-    @sitemap_for_exclusions_xml           = W3Clove::Sitemap.new('http://example.com/exclusions.xml')
-    @sitemap_for_absolute_urls            = W3Clove::Sitemap.new('http://w3clove.com/faqs')
-    @sitemap_international                = W3Clove::Sitemap.new('http://example.com/international')
+    @sitemap                              = SiteValidator::Sitemap.new('http://ryanair.com/sitemap.xml')
+    @sitemap_html                         = SiteValidator::Sitemap.new('http://guides.rubyonrails.org')
+    @sitemap_no_links                     = SiteValidator::Sitemap.new('http://zigotica.com')
+    @sitemap_with_trailing_slash          = SiteValidator::Sitemap.new('http://eparreno.com')
+    @sitemap_with_protocol_relative       = SiteValidator::Sitemap.new('http://protocol-relative.com')
+    @sitemap_with_protocol_relative_https = SiteValidator::Sitemap.new('https://protocol-relative.com')
+    @sitemap_for_exclusions               = SiteValidator::Sitemap.new('http://example.com/exclusions')
+    @sitemap_for_exclusions_xml           = SiteValidator::Sitemap.new('http://example.com/exclusions.xml')
+    @sitemap_for_absolute_urls            = SiteValidator::Sitemap.new('http://markupvalidator.com/faqs')
+    @sitemap_international                = SiteValidator::Sitemap.new('http://example.com/international')
 
     MarkupValidator.any_instance.stubs(:validate_uri).returns(stubbed_validator_results)
   end
@@ -71,15 +71,15 @@ describe W3Clove::Sitemap do
     it "should get correct absolute links for internal pages" do
       @sitemap_for_absolute_urls.pages.length.should == 9
       @sitemap_for_absolute_urls.pages.map {|p| p.url}
-        .should == ["http://w3clove.com/faqs",
-                    "http://w3clove.com/",
-                    "http://w3clove.com/plans-and-pricing",
-                    "http://w3clove.com/contact",
-                    "http://w3clove.com/charts/errors",
-                    "http://w3clove.com/credits",
-                    "http://w3clove.com/signin",
-                    "http://w3clove.com/api_v1_reference",
-                    "http://w3clove.com/terms_of_service"]
+        .should == ["http://markupvalidator.com/faqs",
+                    "http://markupvalidator.com/",
+                    "http://markupvalidator.com/plans-and-pricing",
+                    "http://markupvalidator.com/contact",
+                    "http://markupvalidator.com/charts/errors",
+                    "http://markupvalidator.com/credits",
+                    "http://markupvalidator.com/signin",
+                    "http://markupvalidator.com/api_v1_reference",
+                    "http://markupvalidator.com/terms_of_service"]
     end
 
     it "should include sitemap url at least, even if no links were found" do
@@ -95,8 +95,8 @@ describe W3Clove::Sitemap do
 
     it "should not repeat internal URLs with and without trailing slash" do
       urls = @sitemap_for_absolute_urls.pages.collect(&:url)
-      urls.should      include 'http://w3clove.com/faqs'
-      urls.should_not  include 'http://w3clove.com/faqs/'
+      urls.should      include 'http://markupvalidator.com/faqs'
+      urls.should_not  include 'http://markupvalidator.com/faqs/'
     end
 
     it "should exclude non-html pages from HTML sitemaps" do
@@ -151,7 +151,7 @@ describe W3Clove::Sitemap do
     it "should know the errors of all of its pages as a whole" do
       @sitemap.errors.length.should == 9
       @sitemap.errors.each do |e|
-        e.should be_an_instance_of W3Clove::Message
+        e.should be_an_instance_of SiteValidator::Message
         e.type.should == :error
       end
     end
@@ -159,7 +159,7 @@ describe W3Clove::Sitemap do
     it "should know the warnings of all of its pages as a whole" do
       @sitemap.warnings.length.should == 9
       @sitemap.warnings.each do |w|
-        w.should be_an_instance_of W3Clove::Message
+        w.should be_an_instance_of SiteValidator::Message
         w.type.should == :warning
       end
     end

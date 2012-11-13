@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-module W3Clove
+module SiteValidator
   ##
   # A message holds a message_id, a line, a text and a type
   #

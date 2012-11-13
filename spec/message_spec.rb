@@ -2,13 +2,13 @@
 
 require_relative 'spec_helper'
 
-describe W3Clove::Message do
+describe SiteValidator::Message do
   before(:each) do
-    @error_message   = W3Clove::Message.new('25',
+    @error_message   = SiteValidator::Message.new('25',
                                             100,
                                             message_text('25'),
                                             :error)
-    @warning_message = W3Clove::Message.new('25',
+    @warning_message = SiteValidator::Message.new('25',
                                             100,
                                             message_text('25'),
                                             :warning)

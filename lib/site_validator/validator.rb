@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-module W3Clove
+module SiteValidator
   ##
   # Validator module is the one in charge of doing the validation loop
   # for all pages on a sitemap and output the errors
@@ -16,14 +16,14 @@ module W3Clove
     # an F is a page with errors, and an E is an exception
     # After the checking is done, a detailed summary is written to filename
     def check(url, filename, timeout)
-      sitemap = W3Clove::Sitemap.new(url, timeout.to_f)
+      sitemap = SiteValidator::Sitemap.new(url, timeout.to_f)
       say "Validating #{sitemap.pages.length} pages"
 
       sitemap.pages.each do |page|
         say_inline page.valid? ? "." : (page.errors.nil? ? 'E' : 'F')
       end
 
-      W3Clove::Reporter.generate_html(sitemap, filename)
+      SiteValidator::Reporter.generate_html(sitemap, filename)
       say "\nValidation finished, see the report at #{filename}"
     end
 
