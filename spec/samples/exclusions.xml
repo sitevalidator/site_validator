@@ -67,6 +67,18 @@ Content-Type: text/xml
     <loc>http://example.com/file.ogg</loc>
   </url>
   <url>
+    <loc>http://example.com/file.zip</loc>
+  </url>
+  <url>
+    <loc>http://example.com/file.rar</loc>
+  </url>
+  <url>
+    <loc>http://example.com/file.tar</loc>
+  </url>
+  <url>
+    <loc>http://example.com/file.gz</loc>
+  </url>
+  <url>
     <loc>mailto:user@example.com</loc>
   </url>
   <url>
