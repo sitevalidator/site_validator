@@ -115,8 +115,8 @@ describe SiteValidator::Sitemap do
     it "should not crash when URLs have international characters" do
       @sitemap_international.pages.length.should == 9
       @sitemap_international.pages[0].url.should == 'http://example.com/international'
-      @sitemap_international.pages[1].url.should == 'http://example.com/romanée'
-      @sitemap_international.pages[2].url.should == 'http://example.com/españa'
+      @sitemap_international.pages[1].url.should == 'http://example.com/roman%C3%A9e'
+      @sitemap_international.pages[2].url.should == 'http://example.com/espa%C3%B1a'
       @sitemap_international.pages[3].url.should == 'http://example.com/roman%C3%A9e-2'
       @sitemap_international.pages[4].url.should == 'http://example.com/espa%C3%B1a-2'
       @sitemap_international.pages[5].url.should == 'http://example.com/search?q=espa%C3%B1a'

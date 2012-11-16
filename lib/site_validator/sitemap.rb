@@ -55,10 +55,10 @@ module SiteValidator
     def pages_in_sitemap
       pages = xml_locations.select {|loc| looks_like_html?(loc.text)}.map {|loc| SiteValidator::Page.new(loc.text)}
       if pages.empty?
-        m     = MetaInspector.new(url, timeout)
+        m     = MetaInspector.new(url, :timeout => timeout)
         links = [m.url]
 
-        m.links.select {|l| l.start_with?(m.root_url) && looks_like_html?(l)}.map {|l| l.split('#')[0]}.uniq.each do |link|
+        m.internal_links.select {|l| looks_like_html?(l)}.map {|l| l.split('#')[0]}.uniq.each do |link|
           if link[-1,1] == "/"
             links << link unless (links.include?(link) || links.include?(link.chop))
           else
