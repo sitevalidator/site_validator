@@ -43,6 +43,12 @@ Content-Type: text/xml
     <loc>http://example.com/file.txt</loc>
   </url>
   <url>
+    <loc>http://example.com/file.mobi</loc>
+  </url>
+  <url>
+    <loc>http://example.com/file.epub</loc>
+  </url>
+  <url>
     <loc>http://example.com/file.doc</loc>
   </url>
   <url>

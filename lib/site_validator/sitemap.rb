@@ -78,7 +78,7 @@ module SiteValidator
       scheme    = u.scheme                if u.scheme
       extension = u.path.split(".").last  if u.path
 
-      (scheme =~ /http[s]?/i) && (extension !~ /gif|jpg|jpeg|png|tiff|bmp|txt|pdf|doc|rtf|xml|xls|csv|wav|mp3|ogg|zip|rar|tar|gz/i)
+      (scheme =~ /http[s]?/i) && (extension !~ /gif|jpg|jpeg|png|tiff|bmp|txt|pdf|mobi|epub|doc|rtf|xml|xls|csv|wav|mp3|ogg|zip|rar|tar|gz/i)
     end
 
     def xml_locations
