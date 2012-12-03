@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 require 'open-uri'
+require 'open_uri_redirections'
 require 'nokogiri'
 require 'metainspector'
 require 'timeout'
@@ -86,7 +87,7 @@ module SiteValidator
     end
 
     def doc
-      @doc ||= open(url)
+      @doc ||= open(url, :allow_safe_redirections => true)
     end
   end
 end

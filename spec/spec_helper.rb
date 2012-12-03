@@ -17,6 +17,8 @@ FakeWeb.register_uri(:get, "http://example.com/exclusions", :response => open("#
 FakeWeb.register_uri(:get, "http://example.com/exclusions.xml", :response => open("#{$samples_dir}/exclusions.xml").read)
 FakeWeb.register_uri(:get, "http://markupvalidator.com/faqs", :response => open("#{$samples_dir}/markup_validator_faqs.response").read)
 FakeWeb.register_uri(:get, "http://example.com/international", :response => open("#{$samples_dir}/international.response").read)
+FakeWeb.register_uri(:get, "http://github.com", :response => open("#{$samples_dir}/http_github.response").read)
+FakeWeb.register_uri(:get, "https://github.com", :response => open("#{$samples_dir}/https_github.response").read)
 
 def message_text(message_id)
   message_texts = {

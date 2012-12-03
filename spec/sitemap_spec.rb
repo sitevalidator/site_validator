@@ -14,6 +14,7 @@ describe SiteValidator::Sitemap do
     @sitemap_for_exclusions_xml           = SiteValidator::Sitemap.new('http://example.com/exclusions.xml')
     @sitemap_for_absolute_urls            = SiteValidator::Sitemap.new('http://markupvalidator.com/faqs')
     @sitemap_international                = SiteValidator::Sitemap.new('http://example.com/international')
+    @sitemap_with_safe_redirect           = SiteValidator::Sitemap.new('http://github.com')
 
     MarkupValidator.any_instance.stubs(:validate_uri).returns(stubbed_validator_results)
   end
@@ -66,6 +67,14 @@ describe SiteValidator::Sitemap do
                     "http://guides.rubyonrails.org/contribute.html",
                     "http://guides.rubyonrails.org/credits.html",
                     "http://guides.rubyonrails.org/v2.3.8/"]
+    end
+
+    it "should follow safe (http => https) redirects" do
+      expect {
+        @sitemap_with_safe_redirect.pages
+      }.to_not raise_error
+
+      @sitemap_with_safe_redirect.pages.length.should == 37
     end
 
     it "should get correct absolute links for internal pages" do
