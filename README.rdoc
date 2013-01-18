@@ -2,9 +2,9 @@
 
 Site-wide markup validator. Validate a whole web site on the W3C Markup Validator, from the command line, and generate a comprehensive report of all errors found.
 
-This is the command-line version of http://markupvalidator.com
+This is the command-line version of http://sitevalidator.com
 
-http://markupvalidator.com/images/gem.png
+http://sitevalidator.com/images/gem.png
 
 = Installation:
 
