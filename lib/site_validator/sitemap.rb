@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
 
-require 'open-uri'
-require 'open_uri_redirections'
 require 'nokogiri'
 require 'metainspector'
 require 'timeout'
@@ -56,7 +54,7 @@ module SiteValidator
     def pages_in_sitemap
       pages = xml_locations.select {|loc| looks_like_html?(loc.text)}.map {|loc| SiteValidator::Page.new(loc.text)}
       if pages.empty?
-        m     = MetaInspector.new(url, :timeout => timeout)
+        m     = MetaInspector.new(url, :timeout => timeout, :allow_redirections => :all)
         links = [m.url]
 
         m.internal_links.select {|l| looks_like_html?(l)}.map {|l| l.split('#')[0]}.uniq.each do |link|
@@ -87,7 +85,7 @@ module SiteValidator
     end
 
     def doc
-      @doc ||= open(url, :allow_safe_redirections => true)
+      @doc ||= open(url, :allow_redirections => :all)
     end
   end
 end
