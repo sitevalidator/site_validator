@@ -33,9 +33,8 @@ describe SiteValidator::Sitemap do
     end
 
     it "should get pages from the sample guides.rubyonrails.org site" do
-      #@sitemap_html.pages.length.should == 34
       @sitemap_html.pages.map {|p| p.url}
-        .should == ["http://guides.rubyonrails.org",
+        .should == ["http://guides.rubyonrails.org/",
                     "http://guides.rubyonrails.org/index.html",
                     "http://guides.rubyonrails.org/getting_started.html",
                     "http://guides.rubyonrails.org/migrations.html",
@@ -102,13 +101,13 @@ describe SiteValidator::Sitemap do
 
     it "should include sitemap url at least, even if no links were found" do
       @sitemap_no_links.pages.length.should == 1
-      @sitemap_no_links.pages[0].url.should == 'http://zigotica.com'
+      @sitemap_no_links.pages[0].url.should == 'http://zigotica.com/'
     end
 
     it "should not repeat sitemap URL with and without trailing slash" do
       urls = @sitemap_with_trailing_slash.pages.collect(&:url)
-      urls.should      include 'http://eparreno.com'
-      urls.should_not  include 'http://eparreno.com/'
+      urls.should_not include 'http://eparreno.com'
+      urls.should     include 'http://eparreno.com/'
     end
 
     it "should not repeat internal URLs with and without trailing slash" do
@@ -146,7 +145,7 @@ describe SiteValidator::Sitemap do
     context "protocol-relative links" do
       it "should include only internal links" do
         @sitemap_with_protocol_relative.pages.size.should == 3
-        @sitemap_with_protocol_relative.pages.map {|p| p.url}.sort.should == ['http://protocol-relative.com',
+        @sitemap_with_protocol_relative.pages.map {|p| p.url}.sort.should == ['http://protocol-relative.com/',
                                                                               'http://protocol-relative.com/contact',
                                                                               'http://protocol-relative.com/faqs']
       end
