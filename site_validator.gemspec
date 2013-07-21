@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["jaimeiniesta@gmail.com"]
   gem.description   = %q{command-line tool to validate the markup of a whole site against the W3C validator}
   gem.summary       = %q{command-line tool to validate the markup of a whole site against the W3C validator}
-  gem.homepage      = "https://github.com/jaimeiniesta/site_validator/"
+  gem.homepage      = "http://gem.sitevalidator.com/"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
