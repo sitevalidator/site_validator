@@ -53,18 +53,21 @@ describe SiteValidator::Page do
     @page.errors[0].text.should == message_text('25')
     @page.errors[0].type.should == :error
     @page.errors[0].source.should == 'a code snippet for line 92'
+    @page.errors[0].explanation.should == 'an explanation for error 25'
 
     @page.errors[1].message_id.should == '325'
     @page.errors[1].line.should == '92'
     @page.errors[1].text.should == message_text('325')
     @page.errors[1].type.should == :error
     @page.errors[1].source.should == 'another code snippet for line 92'
+    @page.errors[1].explanation.should == 'an explanation for error 325'
 
     @page.errors[2].message_id.should == '325'
     @page.errors[2].line.should == '224'
     @page.errors[2].text.should == message_text('325')
     @page.errors[2].type.should == :error
     @page.errors[2].source.should == 'another code snippet for line 325'
+    @page.errors[2].explanation.should == 'an explanation for error 325'
   end
 
   it "should get its validation warnings from the W3C" do
@@ -79,18 +82,21 @@ describe SiteValidator::Page do
     @page.warnings[0].text.should == message_text('338')
     @page.warnings[0].type.should == :warning
     @page.warnings[0].source.should == 'a code snippet for line 338'
+    @page.warnings[0].explanation.should == 'an explanation for warning 338'
 
     @page.warnings[1].message_id.should == '247'
     @page.warnings[1].line.should == '112'
     @page.warnings[1].text.should == message_text('247')
     @page.warnings[1].type.should == :warning
     @page.warnings[1].source.should == 'another code snippet for line 247'
+    @page.warnings[1].explanation.should == 'an explanation for warning 247'
 
     @page.warnings[2].message_id.should == '247'
     @page.warnings[2].line.should == '202'
     @page.warnings[2].text.should == message_text('247')
     @page.warnings[2].type.should == :warning
     @page.warnings[2].source.should == 'another code snippet for line 247'
+    @page.warnings[2].explanation.should == 'an explanation for warning 247'
   end
 
   it "should recover from timeouts when checking for errors" do
@@ -117,9 +123,9 @@ describe SiteValidator::Page do
 
   it "should not record empty errors returned by the validator" do
     mocked_validator = SiteValidator::MockedValidator.new
-    mocked_validator.add_error('25', '92', message_text('25'), 'code snippet')
-    mocked_validator.add_error('', '', '', '')
-    mocked_validator.add_error(nil, nil, nil, nil)
+    mocked_validator.add_error('25', '92', message_text('25'), 'code snippet', 'an explanation')
+    mocked_validator.add_error('', '', '', '', '')
+    mocked_validator.add_error(nil, nil, nil, nil, nil)
     MarkupValidator.any_instance
       .stubs(:validate_uri)
       .with('http://example.com/emptyerrors')
@@ -131,9 +137,9 @@ describe SiteValidator::Page do
 
   it "should not record empty warnings returned by the validator" do
     mocked_validator = SiteValidator::MockedValidator.new
-    mocked_validator.add_warning('25', '92', message_text('25'), 'code snippet')
-    mocked_validator.add_warning('', '', '', '')
-    mocked_validator.add_warning(nil, nil, nil, nil)
+    mocked_validator.add_warning('25', '92', message_text('25'), 'code snippet', 'an explanation')
+    mocked_validator.add_warning('', '', '', '', '')
+    mocked_validator.add_warning(nil, nil, nil, nil, nil)
     MarkupValidator.any_instance
       .stubs(:validate_uri)
       .with('http://example.com/emptyerrors')

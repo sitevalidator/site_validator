@@ -57,6 +57,11 @@
       /* Code blocks */
       pre { background-color: #eee; padding: 5px; margin: 5px; margin-bottom: 25px; }
       code { background-color: #eee; }
+
+      /* Explanations */
+      .w3c_explanation { border: 1px solid #ddd; background-color: #ffe; padding: 10px; margin: -10px 5px 25px 5px; }
+      .helpwanted { float: right; font-size: 2em; }
+
     </style>
 
     <link rel="stylesheet" href="https://sitevalidator.com/cdn/highlightjs/7.3/styles/default.min.css">
@@ -155,6 +160,10 @@
                   <% if error.source && error.source.strip.length > 0 %>
                     <pre><code class="html"><%= error.source.strip %></code></pre>
                   <% end %>
+
+                  <% if error.explanation && error.explanation.strip.length > 0 %>
+                    <div class="w3c_explanation"><%= error.explanation.strip %></div>
+                  <% end %>
                 </li>
               <% end %>
               </ul>
@@ -170,6 +179,14 @@
                   <% end %>
 
                   <%= CGI::escapeHTML(warning.text) %>
+
+                  <% if warning.source && warning.source.strip.length > 0 %>
+                    <pre><code class="html"><%= warning.source.strip %></code></pre>
+                  <% end %>
+
+                  <% if warning.explanation && warning.explanation.strip.length > 0 %>
+                    <div class="w3c_explanation"><%= warning.explanation.strip %></div>
+                  <% end %>
                 </li>
               <% end %>
               </ul>

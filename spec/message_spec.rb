@@ -8,12 +8,14 @@ describe SiteValidator::Message do
                                             100,
                                             message_text('25'),
                                             :error,
-                                            'a code snippet')
+                                            'a code snippet',
+                                            'an explanation')
     @warning_message = SiteValidator::Message.new('25',
                                             100,
                                             message_text('25'),
                                             :warning,
-                                            'a code snippet')
+                                            'a code snippet',
+                                            'an explanation')
   end
 
   it "should have a message_id" do
@@ -36,5 +38,10 @@ describe SiteValidator::Message do
   it "should have a source" do
     @error_message.source.should    == 'a code snippet'
     @warning_message.source.should  == 'a code snippet'
+  end
+
+  it "should have an explanation" do
+    @error_message.explanation.should    == 'an explanation'
+    @warning_message.explanation.should  == 'an explanation'
   end
 end

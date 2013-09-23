@@ -37,15 +37,15 @@ def stubbed_validator_results(with_errors=true, with_warnings=true)
   fake_validator = SiteValidator::MockedValidator.new
 
   if with_errors
-    fake_validator.add_error('25',  '92',   message_text('25'),   'a code snippet for line 92')
-    fake_validator.add_error('325', '92',   message_text('325'),  'another code snippet for line 92')
-    fake_validator.add_error('325', '224',  message_text('325'),  'another code snippet for line 325')
+    fake_validator.add_error('25',  '92',   message_text('25'),   'a code snippet for line 92',         'an explanation for error 25')
+    fake_validator.add_error('325', '92',   message_text('325'),  'another code snippet for line 92',   'an explanation for error 325')
+    fake_validator.add_error('325', '224',  message_text('325'),  'another code snippet for line 325',  'an explanation for error 325')
   end
 
   if with_warnings
-    fake_validator.add_warning('338', '92',   message_text('338'), 'a code snippet for line 338')
-    fake_validator.add_warning('247', '112',  message_text('247'), 'another code snippet for line 247')
-    fake_validator.add_warning('247', '202',  message_text('247'), 'another code snippet for line 247')
+    fake_validator.add_warning('338', '92',   message_text('338'), 'a code snippet for line 338',       'an explanation for warning 338')
+    fake_validator.add_warning('247', '112',  message_text('247'), 'another code snippet for line 247', 'an explanation for warning 247')
+    fake_validator.add_warning('247', '202',  message_text('247'), 'another code snippet for line 247', 'an explanation for warning 247')
   end
 
   fake_validator

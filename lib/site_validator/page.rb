@@ -35,7 +35,7 @@ module SiteValidator
       @errors ||= validations.errors
                     .select {|e| e.message_id && !e.message_id.empty?}
                     .map do |e|
-        SiteValidator::Message.new(e.message_id, e.line, e.message, :error, e.source)
+        SiteValidator::Message.new(e.message_id, e.line, e.message, :error, e.source, prepare_w3c_explanation(e))
       end
     rescue Exception => e
       @exception = e.to_s
@@ -50,7 +50,7 @@ module SiteValidator
       @warnings ||= validations.warnings
                      .select {|w| w.message_id && !w.message_id.empty?}
                      .map do |w|
-        SiteValidator::Message.new(w.message_id, w.line, w.message, :warning, w.source)
+        SiteValidator::Message.new(w.message_id, w.line, w.message, :warning, w.source, prepare_w3c_explanation(w))
       end
     rescue Exception => e
       @exception = e.to_s
@@ -69,6 +69,20 @@ module SiteValidator
     # Returns an instance of MarkupValidator, with the URL set to the one in ENV or its default
     def markup_validator
       @markup_validator ||= MarkupValidator.new(:validator_uri => ENV['W3C_MARKUP_VALIDATOR_URI'] || 'http://validator.w3.org/check')
+    end
+
+    ##
+    # Fixes the link to give feedback to the W3C
+    def prepare_w3c_explanation(message)
+      explanation = message.explanation
+
+      if explanation
+        explanation.strip!
+        explanation.gsub!("our feedback channels", "the W3C feedback channels")
+        explanation.gsub!("feedback.html", "http://validator.w3.org/feedback.html")
+      end
+
+      explanation
     end
   end
 end
