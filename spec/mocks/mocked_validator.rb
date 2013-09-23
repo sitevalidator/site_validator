@@ -6,14 +6,14 @@ module SiteValidator
       @errors, @warnings = [], []
     end
 
-    def add_error(message_id, line, message)
-      @errors << SiteValidator::MockedMessage.new(message_id, line, message)
+    def add_error(message_id, line, message, source)
+      @errors << SiteValidator::MockedMessage.new(message_id, line, message, source)
     end
 
-    def add_warning(message_id, line, message)
-      @warnings << SiteValidator::MockedMessage.new(message_id, line, message)
+    def add_warning(message_id, line, message, source)
+      @warnings << SiteValidator::MockedMessage.new(message_id, line, message, source)
     end
   end
 
-  MockedMessage = Struct.new(:message_id, :line, :message)
+  MockedMessage = Struct.new(:message_id, :line, :message, :source)
 end

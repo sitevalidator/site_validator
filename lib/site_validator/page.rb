@@ -35,7 +35,7 @@ module SiteValidator
       @errors ||= validations.errors
                     .select {|e| e.message_id && !e.message_id.empty?}
                     .map do |e|
-        SiteValidator::Message.new(e.message_id, e.line, e.message, :error)
+        SiteValidator::Message.new(e.message_id, e.line, e.message, :error, e.source)
       end
     rescue Exception => e
       @exception = e.to_s
@@ -50,7 +50,7 @@ module SiteValidator
       @warnings ||= validations.warnings
                      .select {|w| w.message_id && !w.message_id.empty?}
                      .map do |w|
-        SiteValidator::Message.new(w.message_id, w.line, w.message, :warning)
+        SiteValidator::Message.new(w.message_id, w.line, w.message, :warning, w.source)
       end
     rescue Exception => e
       @exception = e.to_s

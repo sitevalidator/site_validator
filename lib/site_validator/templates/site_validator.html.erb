@@ -409,6 +409,8 @@
         border: 0;
       }
 
+      /* Code blocks */
+      code { background-color: #eee; display: block; padding: 5px; margin: 5px;}
     </style>
   </head>
   <body>
@@ -501,6 +503,8 @@
                   <% end %>
 
                   <%= CGI::escapeHTML(error.text) %>
+
+                  <code><%= error.source.strip %></code>
                 </li>
               <% end %>
               </ul>
