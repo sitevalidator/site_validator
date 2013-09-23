@@ -27,7 +27,7 @@ describe SiteValidator::Message do
   end
 
   it "should have a type" do
-    @error_message.type == :error
-    @warning_message.type == :warning
+    @error_message.type.should    == :error
+    @warning_message.type.should  == :warning
   end
 end
