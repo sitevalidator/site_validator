@@ -54,12 +54,8 @@
       /* Errors and warnings messages */
       li{ color:#111; }
 
-      .page_errors li, .page_warnings li {
-        margin-bottom: 25px;
-      }
-
       /* Code blocks */
-      pre { background-color: #eee; padding: 5px; margin: 5px; }
+      pre { background-color: #eee; padding: 5px; margin: 5px; margin-bottom: 25px; }
       code { background-color: #eee; }
     </style>
 
@@ -156,7 +152,9 @@
 
                   <%= CGI::escapeHTML(error.text) %>
 
-                  <pre><code class="html"><%= error.source.strip %></code></pre>
+                  <% if error.source && error.source.strip.length > 0 %>
+                    <pre><code class="html"><%= error.source.strip %></code></pre>
+                  <% end %>
                 </li>
               <% end %>
               </ul>
