@@ -61,6 +61,8 @@
       /* Explanations */
       .w3c_explanation { border: 1px solid #ddd; background-color: #ffe; padding: 10px; margin: -10px 5px 25px 5px; }
       .helpwanted { float: right; font-size: 2em; }
+      .details { display: none; }
+      .coordinates { float: right; margin: 5px 10px; background-color: #fff; color: #333; border: 1px solid #aaa;}
 
     </style>
 
@@ -140,30 +142,33 @@
           <h2>DETAILS PER PAGE</h2>
           <% processed_pages.each do |page| %>
             <div class='page'>
-              <h3><a href='<%= page.url %>'><%= page.url %></a></h3>
-              <p class='page_summary'>
-                <%= "#{page.errors.length} errors, #{page.warnings.length} warnings" %>
-              </p>
+              <h3>
+                <a href='<%= page.url %>'><%= page.url %></a>
+                <span class="label important"><%= "#{page.errors.length} errors" %></span>
+                <span class="label warning"><%= "#{page.warnings.length} warnings" %></span>
+              </h3>
 
               <ul class="page_errors">
               <% page.errors.sort_by {|e| e.line.to_i}.each do |error| %>
                 <li>
-                  <% if error.message_id == 'html5' %>
-                    HTML5 error on line <%= error.line %>:
-                  <% else %>
-                    Error <a href="http://validator.w3.org/docs/errors.html#ve-<%= error.message_id %>"><%= error.message_id %></a>
-                    on line <%= error.line %>:
-                  <% end %>
+                  <span class="label important">ERROR</span>
+                  <strong><%= CGI::escapeHTML(error.text.capitalize) %></strong>
 
-                  <%= CGI::escapeHTML(error.text) %>
+                  <div class="details" id="details_<%= error.object_id %>">
+                    <% if error.line %>
+                      <span class="coordinates label">
+                        LINE <%= error.line %>
+                      </span>
+                    <% end %>
 
-                  <% if error.source && error.source.strip.length > 0 %>
-                    <pre><code class="html"><%= error.source.strip %></code></pre>
-                  <% end %>
+                    <% if error.source && error.source.strip.length > 0 %>
+                      <pre><code class="html"><%= error.source.strip %></code></pre>
+                    <% end %>
 
-                  <% if error.explanation && error.explanation.strip.length > 0 %>
-                    <div class="w3c_explanation"><%= error.explanation.strip %></div>
-                  <% end %>
+                    <% if error.explanation && error.explanation.strip.length > 0 %>
+                      <div class="w3c_explanation"><%= error.explanation.strip %></div>
+                    <% end %>
+                  </div>
                 </li>
               <% end %>
               </ul>
@@ -171,22 +176,24 @@
               <ul class="page_warnings">
               <% page.warnings.sort_by {|w| w.line.to_i}.each do |warning| %>
                 <li>
-                  <% if warning.message_id == 'html5' %>
-                    HTML5 warning on line <%= warning.line %>:
-                  <% else %>
-                    Warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= warning.message_id %>"><%= warning.message_id %></a>
-                    on line <%= warning.line %>:
-                  <% end %>
+                  <span class="label warning">WARNING</span>
+                  <strong><%= CGI::escapeHTML(warning.text.capitalize) %></strong>)
 
-                  <%= CGI::escapeHTML(warning.text) %>
+                  <div class="details"  id="details_<%= warning.object_id %>">
+                    <% if warning.line %>
+                      <span class="coordinates label">
+                        LINE <%= warning.line %>
+                      </span>
+                    <% end %>
 
-                  <% if warning.source && warning.source.strip.length > 0 %>
-                    <pre><code class="html"><%= warning.source.strip %></code></pre>
-                  <% end %>
+                    <% if warning.source && warning.source.strip.length > 0 %>
+                      <pre><code class="html"><%= warning.source.strip %></code></pre>
+                    <% end %>
 
-                  <% if warning.explanation && warning.explanation.strip.length > 0 %>
-                    <div class="w3c_explanation"><%= warning.explanation.strip %></div>
-                  <% end %>
+                    <% if warning.explanation && warning.explanation.strip.length > 0 %>
+                      <div class="w3c_explanation"><%= warning.explanation.strip %></div>
+                    <% end %>
+                  </div>
                 </li>
               <% end %>
               </ul>
@@ -201,6 +208,7 @@
         </footer>
       </div>
     </div>
+
     <script src="https://sitevalidator.com/cdn/highlightjs/7.3/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
   </body>
