@@ -40,7 +40,7 @@ Follow this guide to know how to setup your own validation server: https://githu
 
 ##Notes:
 
-This gem requires Ruby 1.9, and has been tested on Ruby 1.9.2-p0
+This gem requires Ruby 1.9, and has been tested on Ruby 1.9.2, 1.9.3 and 2.0.
 
 ##License:
 
