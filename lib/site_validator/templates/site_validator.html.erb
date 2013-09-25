@@ -91,56 +91,29 @@
       <div class="content">
         <h1>MARKUP VALIDATION FOR <a href='<%= @url %>'><%= @url %></a></h1>
 
-        <h2>SITEMAP SUMMARY</h2>
-        <p>TOTAL: <%= errors.length %> errors, <%= warnings.length %> warnings.</p>
-
         <% if errors.length > 0 %>
-          <h2>POPULAR ERRORS</h2>
-          <ul>
-          <% errors.group_by {|e| e.message_id}.sort_by {|m,e| e.length}.reverse.each do |message_id, errors| %>
-            <% if message_id == 'html5' %>
-              <li><%= errors.length %> HTML5 errors found</li>
-              <li>
-                <ul>
-                <% errors.select{|e| e.message_id == 'html5'}
-                     .group_by {|e| e.text}
-                     .sort_by {|m,e| e.length}
-                     .reverse.each do |text, errors| %>
-                    <li><%= errors.length %> times: <strong><%= CGI::escapeHTML(text) %></strong></li>
-                <% end %>
-                </ul>
-              </li>
-            <% elsif message_id %>
-              <li>error <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
-              happens <%= errors.length %> times</li>
-            <% end %>
+          <h2><%= errors.length %> HTML ERRORS</h2>
+          <div class="accordion">
+          <% errors.group_by {|e| e.text}.sort_by {|t, e| e.length}.reverse.each do |text, errors| %>
+            <h3><span class="label important"><%= errors.length %></span> <%= CGI::escapeHTML(text.capitalize) %></h3>
+            <div><%= errors.first.explanation %></div>
           <% end %>
-          </ul>
+          </div>
         <% end %>
+
+        <hr />
 
         <% if warnings.length > 0 %>
-          <h2>POPULAR WARNINGS</h2>
-          <ul>
-          <% warnings.group_by {|w| w.message_id}.sort_by {|m,w| w.length}.reverse.each do |message_id, warnings| %>
-            <% if message_id == 'html5' %>
-              <li><%= warnings.length %> HTML5 warnings found</li>
-              <li>
-                <ul>
-                <% warnings.select{|w| w.message_id == 'html5'}
-                     .group_by {|w| w.text}
-                     .sort_by {|m,w| w.length}
-                     .reverse.each do |text, warnings| %>
-                    <li><%= warnings.length %> times: <strong><%= CGI::escapeHTML(text) %></strong></li>
-                <% end %>
-                </ul>
-              </li>
-            <% elsif message_id %>
-              <li>warning <a href="http://validator.w3.org/docs/errors.html#ve-<%= message_id %>"><%= message_id %></a>
-              found <%= warnings.length %> times</li>
-            <% end %>
+          <h2><%= warnings.length %> HTML WARNINGS</h2>
+          <div class="accordion">
+          <% warnings.group_by {|w| w.text}.sort_by {|t, w| w.length}.reverse.each do |text, warnings| %>
+            <h3><span class="label warning"><%= warnings.length %></span> <%= CGI::escapeHTML(text.capitalize) %></h3>
+            <div><%= warnings.first.explanation %></div>
           <% end %>
-          </ul>
+          </div>
         <% end %>
+
+        <hr />
 
         <% processed_pages = pages.select{|p| !p.exception} %>
         <% if processed_pages.size > 0 %>
