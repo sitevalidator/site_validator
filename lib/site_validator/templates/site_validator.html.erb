@@ -161,9 +161,9 @@
                   </h3>
 
                   <div>
-                    <% if error.line %>
+                    <% if error.line && error.col %>
                       <span class="coordinates label">
-                        LINE <%= error.line %>
+                        LINE <%= error.line %>, COL <%= error.col %>
                       </span>
                     <% end %>
 
@@ -187,9 +187,9 @@
                   </h3>
 
                   <div>
-                    <% if warning.line %>
+                    <% if warning.line && warning.col %>
                       <span class="coordinates label">
-                        LINE <%= warning.line %>
+                        LINE <%= warning.line %>, COL <%= warning.col %>
                       </span>
                     <% end %>
 

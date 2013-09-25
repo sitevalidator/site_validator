@@ -5,17 +5,19 @@ require_relative 'spec_helper'
 describe SiteValidator::Message do
   before(:each) do
     @error_message   = SiteValidator::Message.new('25',
-                                            100,
-                                            message_text('25'),
-                                            :error,
-                                            'a code snippet',
-                                            'an explanation')
+                                                  100,
+                                                  20,
+                                                  message_text('25'),
+                                                  :error,
+                                                  'a code snippet',
+                                                  'an explanation')
     @warning_message = SiteValidator::Message.new('25',
-                                            100,
-                                            message_text('25'),
-                                            :warning,
-                                            'a code snippet',
-                                            'an explanation')
+                                                  100,
+                                                  20,
+                                                  message_text('25'),
+                                                  :warning,
+                                                  'a code snippet',
+                                                  'an explanation')
   end
 
   it "should have a message_id" do
@@ -24,6 +26,10 @@ describe SiteValidator::Message do
 
   it "should have a line" do
     @error_message.line.should == 100
+  end
+
+  it "should have a col" do
+    @error_message.col.should == 20
   end
 
   it "should have a text" do

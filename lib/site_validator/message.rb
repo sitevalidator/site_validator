@@ -7,5 +7,5 @@ module SiteValidator
   #
   # See the W3C message explanation list on
   # http://validator.w3.org/docs/errors.html
-  Message = Struct.new(:message_id, :line, :text, :type, :source, :explanation)
+  Message = Struct.new(:message_id, :line, :col, :text, :type, :source, :explanation)
 end
