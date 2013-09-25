@@ -1,193 +1,220 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset=utf-8>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Site Validator report for <%= @url %></title>
-    <link rel="stylesheet" href="https://sitevalidator.com/cdn/bootstrap/1.4.0/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <style type="text/css">
+      /*
+       * Style tweaks from http://getbootstrap.com/examples/offcanvas/offcanvas.css
+       * --------------------------------------------------
+       */
+      body {
+        padding-top: 70px;
+      }
+      footer {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      /*
+       * Off Canvas
+       * --------------------------------------------------
+       */
+      @media screen and (max-width: 768px) {
+        .row-offcanvas {
+          position: relative;
+          -webkit-transition: all 0.25s ease-out;
+          -moz-transition: all 0.25s ease-out;
+          transition: all 0.25s ease-out;
+        }
+
+        .row-offcanvas-right
+        .sidebar-offcanvas {
+          right: -50%; /* 6 columns */
+        }
+
+        .row-offcanvas-left
+        .sidebar-offcanvas {
+          left: -50%; /* 6 columns */
+        }
+
+        .row-offcanvas-right.active {
+          right: 50%; /* 6 columns */
+        }
+
+        .row-offcanvas-left.active {
+          left: 50%; /* 6 columns */
+        }
+
+        .sidebar-offcanvas {
+          position: absolute;
+          top: 0;
+          width: 50%; /* 6 columns */
+        }
+      }
+    </style>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.3.0/respond.js"></script>
+    <![endif]-->
+
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 
+    <link rel="stylesheet" href="https://sitevalidator.com/cdn/highlightjs/7.3/styles/default.min.css">
+
     <style type="text/css">
-      /* Override some defaults */
-      html, body {
-        background-color: #eee;
-      }
-      body {
-        padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
-      }
-      .container > footer p {
-        text-align: center; /* center align it with the container */
-      }
-      .container {
-        width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
-      }
 
-      /* The white background content wrapper */
-      .content {
-        background-color: #fff;
-        padding: 20px;
-        margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
-        -webkit-border-radius: 0 0 6px 6px;
-           -moz-border-radius: 0 0 6px 6px;
-                border-radius: 0 0 6px 6px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-                box-shadow: 0 1px 2px rgba(0,0,0,.15);
-      }
-
-
-      /* Page header tweaks */
-      .page {
-        margin-top: 30px;
-      }
-
-      .page-header {
-        background-color: #f5f5f5;
-        padding: 20px 20px 10px;
-        margin: -20px -20px 20px;
-      }
-
-      /* Give a quick and non-cross-browser friendly divider */
-      .content .span4 {
-        margin-left: 0;
-        padding-left: 19px;
-        border-left: 1px solid #eee;
-      }
-
-      .topbar .btn {
-        border: 0;
-      }
-
-      /* Errors and warnings messages */
-      li{ color:#111; }
-
-      /* Code blocks */
-      pre { background-color: #eee; padding: 5px; margin: 5px; margin-bottom: 25px; }
-      code { background-color: #eee; }
+      a.navbar-brand { color: #FFF !important; }
 
       /* Explanations */
-      .w3c_explanation { border: 1px solid #ddd; background-color: #ffe; padding: 10px; margin: -10px 5px 25px 5px; }
+      .w3c_explanation { border: 1px solid #ddd; background-color: #ffe; padding: 10px; margin: 5px 5px 25px 5px; font-size: 0.8em; }
       .helpwanted { float: right; font-size: 2em; }
       .coordinates { float: right; margin: 10px; background-color: #fff; color: #333; border: 1px solid #aaa;}
 
     </style>
-
-    <link rel="stylesheet" href="https://sitevalidator.com/cdn/highlightjs/7.3/styles/default.min.css">
   </head>
+
   <body>
-    <div class="topbar">
-      <div class="fill">
-        <div class="container">
-          <a class="brand" href="http://sitevalidator.com"><strong>Site Validator</strong></a>
-          <ul class="nav" data-dropdown="dropdown" >
-            <li><a href="http://sitevalidator.com/faqs">FAQs</a></li>
+
+    <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://sitevalidator.com">Site Validator</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
             <li><a href="http://sitevalidator.com/plans-and-pricing">Plans and pricing</a></li>
+            <li><a href="https://sitevalidator.com/faqs">FAQs</a></li>
             <li><a href="mailto:support@sitevalidator.com">Contact</a></li>
           </ul>
-        </div>
-      </div>
-    </div>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </div><!-- /.navbar -->
 
     <div class="container">
-      <div class="content">
-        <h1>MARKUP VALIDATION FOR <a href='<%= @url %>'><%= @url %></a></h1>
 
-        <% if errors.length > 0 %>
-          <h2><%= errors.length %> HTML ERRORS</h2>
-          <div class="accordion">
-          <% errors.group_by {|e| e.text}.sort_by {|t, e| e.length}.reverse.each do |text, errors| %>
-            <h3><span class="label important"><%= errors.length %></span> <%= CGI::escapeHTML(text.capitalize) %></h3>
-            <div><%= errors.first.explanation %></div>
-          <% end %>
+      <h1>MARKUP VALIDATION FOR <a href='<%= @url %>'><%= @url %></a></h1>
+
+      <% if errors.length > 0 %>
+        <h2><%= errors.length %> HTML ERRORS</h2>
+        <div class="accordion">
+        <% errors.group_by {|e| e.text}.sort_by {|t, e| e.length}.reverse.each do |text, errors| %>
+          <h3><span class="label label-danger"><%= errors.length %></span> <%= CGI::escapeHTML(text.capitalize) %></h3>
+          <div>
+            <% if errors.first.explanation && errors.first.explanation.strip.length > 0 %>
+              <div class="w3c_explanation"><%= errors.first.explanation.strip %></div>
+            <% end %>
           </div>
         <% end %>
+        </div>
+      <% end %>
 
-        <hr />
+      <hr />
 
-        <% if warnings.length > 0 %>
-          <h2><%= warnings.length %> HTML WARNINGS</h2>
-          <div class="accordion">
-          <% warnings.group_by {|w| w.text}.sort_by {|t, w| w.length}.reverse.each do |text, warnings| %>
-            <h3><span class="label warning"><%= warnings.length %></span> <%= CGI::escapeHTML(text.capitalize) %></h3>
-            <div><%= warnings.first.explanation %></div>
-          <% end %>
+      <% if warnings.length > 0 %>
+        <h2><%= warnings.length %> HTML WARNINGS</h2>
+        <div class="accordion">
+        <% warnings.group_by {|w| w.text}.sort_by {|t, w| w.length}.reverse.each do |text, warnings| %>
+          <h3><span class="label label-warning"><%= warnings.length %></span> <%= CGI::escapeHTML(text.capitalize) %></h3>
+          <div>
+            <% if warnings.first.explanation && warnings.first.explanation.strip.length > 0 %>
+              <div class="w3c_explanation"><%= warnings.first.explanation.strip %></div>
+            <% end %>
           </div>
         <% end %>
+        </div>
+      <% end %>
 
-        <hr />
+      <hr />
 
-        <% processed_pages = pages.select{|p| !p.exception} %>
-        <% if processed_pages.size > 0 %>
-          <h2>DETAILS PER PAGE</h2>
-          <% processed_pages.each do |page| %>
-            <div class='page'>
-              <h3>
-                <a href='<%= page.url %>'><%= page.url %></a>
-                <span class="label important"><%= "#{page.errors.length} errors" %></span>
-                <span class="label warning"><%= "#{page.warnings.length} warnings" %></span>
-              </h3>
+      <% processed_pages = pages.select{|p| !p.exception} %>
+      <% if processed_pages.size > 0 %>
+        <h2>DETAILS PER PAGE</h2>
+        <% processed_pages.each do |page| %>
+          <div class='page'>
+            <h3>
+              <a href='<%= page.url %>'><%= page.url %></a>
+              <span class="label label-danger"><%= "#{page.errors.length} errors" %></span>
+              <span class="label label-warning"><%= "#{page.warnings.length} warnings" %></span>
+            </h3>
 
-              <div class="accordion">
-                <% page.errors.sort_by {|e| e.line.to_i}.each do |error| %>
-                  <h3>
-                    <span class="label important">ERROR</span>
-                    <%= CGI::escapeHTML(error.text.capitalize) %>
-                  </h3>
+            <div class="accordion">
+              <% page.errors.sort_by {|e| e.line.to_i}.each do |error| %>
+                <h3>
+                  <span class="label label-danger">ERROR</span>
+                  <%= CGI::escapeHTML(error.text.capitalize) %>
+                </h3>
 
-                  <div>
-                    <% if error.line && error.col %>
-                      <span class="coordinates label">
-                        LINE <%= error.line %>, COL <%= error.col %>
-                      </span>
-                    <% end %>
+                <div>
+                  <% if error.line && error.col %>
+                    <span class="coordinates label">
+                      LINE <%= error.line %>, COL <%= error.col %>
+                    </span>
+                  <% end %>
 
-                    <% if error.source && error.source.strip.length > 0 %>
-                      <pre><code class="html"><%= error.source.strip %></code></pre>
-                    <% end %>
+                  <% if error.source && error.source.strip.length > 0 %>
+                    <pre><code class="html"><%= error.source.strip %></code></pre>
+                  <% end %>
 
-                    <% if error.explanation && error.explanation.strip.length > 0 %>
-                      <div class="w3c_explanation"><%= error.explanation.strip %></div>
-                    <% end %>
-                  </div>
+                  <% if error.explanation && error.explanation.strip.length > 0 %>
+                    <div class="w3c_explanation"><%= error.explanation.strip %></div>
+                  <% end %>
+                </div>
 
-                <% end %>
-              </div>
-
-              <div class="accordion">
-                <% page.warnings.sort_by {|w| w.line.to_i}.each do |warning| %>
-                  <h3>
-                    <span class="label warning">WARNING</span>
-                    <%= CGI::escapeHTML(warning.text.capitalize) %>
-                  </h3>
-
-                  <div>
-                    <% if warning.line && warning.col %>
-                      <span class="coordinates label">
-                        LINE <%= warning.line %>, COL <%= warning.col %>
-                      </span>
-                    <% end %>
-
-                    <% if warning.source && warning.source.strip.length > 0 %>
-                      <pre><code class="html"><%= warning.source.strip %></code></pre>
-                    <% end %>
-
-                    <% if warning.explanation && warning.explanation.strip.length > 0 %>
-                      <div class="w3c_explanation"><%= warning.explanation.strip %></div>
-                    <% end %>
-                  </div>
-
-                <% end %>
-              </div>
+              <% end %>
             </div>
-          <% end %>
-        <% end %>
 
-        <footer>
-          <p>This markup validation report has been generated using the <a href="http://gem.sitevalidator.com">SiteValidator</a> gem.</p>
-          <p>You can also find an online version that lets you store the results and re-check the URLs later, at <a href="http://sitevalidator.com">sitevalidator.com</a>.</p>
-          <p><strong>SiteValidator</strong> is a lovely site-wide markup validator. We're not associated with the W3C but we love it!</p>
-        </footer>
-      </div>
+            <div class="accordion">
+              <% page.warnings.sort_by {|w| w.line.to_i}.each do |warning| %>
+                <h3>
+                  <span class="label label-warning">WARNING</span>
+                  <%= CGI::escapeHTML(warning.text.capitalize) %>
+                </h3>
+
+                <div>
+                  <% if warning.line && warning.col %>
+                    <span class="coordinates label">
+                      LINE <%= warning.line %>, COL <%= warning.col %>
+                    </span>
+                  <% end %>
+
+                  <% if warning.source && warning.source.strip.length > 0 %>
+                    <pre><code class="html"><%= warning.source.strip %></code></pre>
+                  <% end %>
+
+                  <% if warning.explanation && warning.explanation.strip.length > 0 %>
+                    <div class="w3c_explanation"><%= warning.explanation.strip %></div>
+                  <% end %>
+                </div>
+
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <hr />
+
+      <footer>
+        <p>This markup validation report has been generated using the <a href="http://gem.sitevalidator.com">SiteValidator</a> gem.</p>
+        <p>You can also find an online version that lets you store the results and re-check the URLs later, at <a href="http://sitevalidator.com">sitevalidator.com</a>.</p>
+        <p><strong>Site Validator</strong> is a lovely site-wide markup validator. We're not associated with the W3C but we love it!</p>
+      </footer>
+
     </div>
+
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
