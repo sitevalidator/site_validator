@@ -72,7 +72,16 @@
 
       a.navbar-brand { color: #FFF !important; }
 
-      .tab-pane { padding-top: 10px; }
+      /* Tabs */
+      .tab-content {
+        border: 1px solid #ddd;
+        border-top: 0px;
+        padding: 10px;
+      }
+
+      .nav-tabs {
+          margin-bottom: 0;
+      }
 
       /* Explanations */
       .w3c_explanation { border: 1px solid #ddd; background-color: #ffe; padding: 10px; margin: 5px 5px 25px 5px; font-size: 0.8em; }
@@ -106,7 +115,7 @@
 
     <div class="container">
 
-      <h1>MARKUP VALIDATION FOR <a href='<%= @url %>'><%= @url %></a></h1>
+      <h1>Site validation for <a href='<%= @url %>'><%= @url %></a></h1>
 
       <ul class="nav nav-tabs">
         <li class="active"><a href="#urls">List of URLs</a></li>
@@ -118,67 +127,67 @@
         <div class="tab-pane active" id="urls">
           <% processed_pages = pages.select{|p| !p.exception} %>
           <% if processed_pages.size > 0 %>
-            <% processed_pages.each do |page| %>
-              <div class='page'>
+            <div class="accordion">
+              <% processed_pages.each do |page| %>
                 <h3>
-                  <a href='<%= page.url %>'><%= page.url %></a>
-                  <span class="label label-danger"><%= "#{page.errors.length} errors" %></span>
-                  <span class="label label-warning"><%= "#{page.warnings.length} warnings" %></span>
+                  <%= page.url %>
+                  <div class="pull-right">
+                    <span class="label label-danger"><%= "#{page.errors.length} ERRORS" %></span>
+                    <span class="label label-warning"><%= "#{page.warnings.length} WARNINGS" %></span>
+                  </div>
                 </h3>
 
-                <div class="accordion">
-                  <% page.errors.sort_by {|e| e.line.to_i}.each do |error| %>
-                    <h3>
-                      <span class="label label-danger">ERROR</span>
-                      <%= CGI::escapeHTML(error.text.capitalize) %>
-                    </h3>
+                <div style="padding:10px;">
+                  <div class="accordion">
+                    <% page.errors.sort_by {|e| e.line.to_i}.each do |error| %>
+                      <h3>
+                        <span class="label label-danger">ERROR</span>
+                        <%= CGI::escapeHTML(error.text.capitalize) %>
+                      </h3>
 
-                    <div>
-                      <% if error.line && error.col %>
-                        <span class="coordinates label">
-                          LINE <%= error.line %>, COL <%= error.col %>
-                        </span>
-                      <% end %>
+                      <div>
+                        <% if error.line && error.col %>
+                          <span class="coordinates label">
+                            LINE <%= error.line %>, COL <%= error.col %>
+                          </span>
+                        <% end %>
 
-                      <% if error.source && error.source.strip.length > 0 %>
-                        <pre><code class="html"><%= error.source.strip %></code></pre>
-                      <% end %>
+                        <% if error.source && error.source.strip.length > 0 %>
+                          <pre><code class="html"><%= error.source.strip %></code></pre>
+                        <% end %>
 
-                      <% if error.explanation && error.explanation.strip.length > 0 %>
-                        <div class="w3c_explanation"><%= error.explanation.strip %></div>
-                      <% end %>
-                    </div>
+                        <% if error.explanation && error.explanation.strip.length > 0 %>
+                          <div class="w3c_explanation"><%= error.explanation.strip %></div>
+                        <% end %>
+                      </div>
+                    <% end %>
 
-                  <% end %>
+                    <% page.warnings.sort_by {|w| w.line.to_i}.each do |warning| %>
+                      <h3>
+                        <span class="label label-warning">WARNING</span>
+                        <%= CGI::escapeHTML(warning.text.capitalize) %>
+                      </h3>
+
+                      <div>
+                        <% if warning.line && warning.col %>
+                          <span class="coordinates label">
+                            LINE <%= warning.line %>, COL <%= warning.col %>
+                          </span>
+                        <% end %>
+
+                        <% if warning.source && warning.source.strip.length > 0 %>
+                          <pre><code class="html"><%= warning.source.strip %></code></pre>
+                        <% end %>
+
+                        <% if warning.explanation && warning.explanation.strip.length > 0 %>
+                          <div class="w3c_explanation"><%= warning.explanation.strip %></div>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
                 </div>
-
-                <div class="accordion">
-                  <% page.warnings.sort_by {|w| w.line.to_i}.each do |warning| %>
-                    <h3>
-                      <span class="label label-warning">WARNING</span>
-                      <%= CGI::escapeHTML(warning.text.capitalize) %>
-                    </h3>
-
-                    <div>
-                      <% if warning.line && warning.col %>
-                        <span class="coordinates label">
-                          LINE <%= warning.line %>, COL <%= warning.col %>
-                        </span>
-                      <% end %>
-
-                      <% if warning.source && warning.source.strip.length > 0 %>
-                        <pre><code class="html"><%= warning.source.strip %></code></pre>
-                      <% end %>
-
-                      <% if warning.explanation && warning.explanation.strip.length > 0 %>
-                        <div class="w3c_explanation"><%= warning.explanation.strip %></div>
-                      <% end %>
-                    </div>
-
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
           <% end %>
         </div>
 
