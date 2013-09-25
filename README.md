@@ -1,8 +1,8 @@
 ###Site Validator Gem [![travis build status](https://secure.travis-ci.org/jaimeiniesta/site_validator.png?branch=master)](http://travis-ci.org/jaimeiniesta/site_validator)
 
-site_validator is the free, open source version of the popular [Site Validator app](https://sitevalidator.com).
+site_validator is the free, open source version of the [Site Validator app](https://sitevalidator.com).
 
-Just pass it your site's URL and it will crawl it and validate its HTML for you, generating a comprehensive report of all errors found.
+Just pass it your site's URL and it will crawl its internal links and validate their HTML for you, generating a comprehensive validation report (see [an example](http://sitevalidator.com/gem/report.html)).
 
 [![site_validator screencast](https://dl.dropboxusercontent.com/u/2268180/sitevalidator_gem_video.png)](https://sitevalidator.com/video_gem?autoplay=true)
 
