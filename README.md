@@ -38,6 +38,18 @@ By default, site_validator will use the official W3C Validator server at http://
 
 Follow this guide to know how to setup your own validation server: https://github.com/tlvince/w3c-validator-guide
 
+##User Agent
+
+By default, site_validator will tell the W3C validator software to use the User Agent string `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36` instead of the default `W3C_Validator/XX.xxxx`.
+
+I've found that some servers will produce different HTML depending on the User Agent string, and this can lead to unexpected results for the web developer that is seeing this site with a browser, but getting weird validation errors from the W3C validator, as it's seeing different HTML.
+
+If you want to override this, you can set up you own User Agent string with an environment variable, like:
+
+    ENV['W3C_MARKUP_VALIDATOR_USER_AGENT'] = 'W3C_Validator/1.6.5.4'
+
+More info about the `user-agent` option on the W3C Validator can be found [here](http://validator.w3.org/docs/users.html#option-user-agent).
+
 ##Notes:
 
 This gem requires Ruby 1.9, and has been tested on Ruby 1.9.2, 1.9.3 and 2.0.

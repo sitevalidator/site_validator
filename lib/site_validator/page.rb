@@ -68,7 +68,8 @@ module SiteValidator
     ##
     # Returns an instance of MarkupValidator, with the URL set to the one in ENV or its default
     def markup_validator
-      @markup_validator ||= MarkupValidator.new(:validator_uri => ENV['W3C_MARKUP_VALIDATOR_URI'] || 'http://validator.w3.org/check')
+      @markup_validator ||= MarkupValidator.new(:validator_uri => ENV['W3C_MARKUP_VALIDATOR_URI'] || 'http://validator.w3.org/check',
+                                                'user-agent'   => ENV['W3C_MARKUP_VALIDATOR_USER_AGENT'] || 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.76 Safari/537.36')
     end
 
     ##
