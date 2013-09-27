@@ -46,7 +46,7 @@ I've found that some servers will produce different HTML depending on the User A
 
 If you want to override this, you can set up you own User Agent string with an environment variable, like:
 
-    ENV['W3C_MARKUP_VALIDATOR_USER_AGENT'] = 'W3C_Validator/1.6.5.4'
+    ENV['W3C_MARKUP_VALIDATOR_USER_AGENT'] = 'W3C_Validator/1.3'
 
 More info about the `user-agent` option on the W3C Validator can be found [here](http://validator.w3.org/docs/users.html#option-user-agent).
 
