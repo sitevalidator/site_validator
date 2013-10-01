@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'w3c_validators',  '~> 1.2'
   gem.add_dependency 'nokogiri',        '~> 1.5.3'
-  gem.add_dependency 'metainspector',   '~> 1.15.4'
+  gem.add_dependency 'metainspector',   '~> 1.16.1'
 
   gem.add_development_dependency 'rspec',   '~> 2.5.0'
   gem.add_development_dependency 'mocha',   '~> 0.11.4'
