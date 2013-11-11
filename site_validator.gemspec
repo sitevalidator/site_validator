@@ -15,7 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = SiteValidator::VERSION
 
-  gem.add_dependency 'w3c_validators'
+  gem.add_dependency 'w3c_validators',  '~> 1.2'
   gem.add_dependency 'nokogiri',        '~> 1.5.3'
   gem.add_dependency 'metainspector',   '~> 1.17.0'
 
