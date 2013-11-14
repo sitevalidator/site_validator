@@ -73,12 +73,13 @@ module SiteValidator
     end
 
     ##
-    # Prepares the error message explanation, adjusting the feedback link
+    # Prepares the error message explanation, adjusting the feedback and docs links
     def prepare_w3c_explanation(message)
       explanation = message.explanation
 
       if explanation
         explanation.gsub!("feedback.html", "http://validator.w3.org/feedback.html")
+        explanation.gsub!("docs/", "http://validator.w3.org/docs/")
         explanation.gsub!("our feedback channels", "the W3C feedback channels")
         explanation.strip!
         explanation = nil if explanation.size == 0
