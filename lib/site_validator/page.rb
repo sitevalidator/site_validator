@@ -73,12 +73,12 @@ module SiteValidator
     end
 
     ##
-    # Prepares the error message explanation, adjusting the feedback and docs links
+    # Prepares the error message explanation, removing the feedback and adjusting the docs links
     def prepare_w3c_explanation(message)
       explanation = message.explanation
 
       if explanation
-        explanation.gsub!("feedback.html", "http://validator.w3.org/feedback.html")
+        explanation = remove_feedback_link(explanation)
         explanation.gsub!("docs/", "http://validator.w3.org/docs/")
         explanation.gsub!("our feedback channels", "the W3C feedback channels")
         explanation.strip!
@@ -86,6 +86,12 @@ module SiteValidator
       end
 
       explanation
+    end
+
+    def remove_feedback_link(explanation)
+      fragment = Nokogiri::HTML.fragment(explanation)
+      fragment.at_css('p.helpwanted').remove
+      fragment.to_html
     end
   end
 end
