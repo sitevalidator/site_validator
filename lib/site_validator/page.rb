@@ -90,7 +90,8 @@ module SiteValidator
 
     def remove_feedback_link(explanation)
       fragment = Nokogiri::HTML.fragment(explanation)
-      fragment.at_css('p.helpwanted').remove
+      fragment.at_css('p.helpwanted').remove if fragment.at_css('p.helpwanted')
+
       fragment.to_html
     end
   end
