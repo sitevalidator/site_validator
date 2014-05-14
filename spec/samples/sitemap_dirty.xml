@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Date: Thu, 29 Dec 2011 23:08:54 GMT
+Server: Apache/2.2.21 (Unix) mod_ssl/2.2.3 OpenSSL/0.9.8e-fips-rhel5
+Transfer-Encoding: chunked
+Content-Type: text/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>  http://www.ryanair.com/es/  </loc>
+  </url>
+  <url>
+    <loc>
+      http://www.ryanair.com/es/careers/job
+    </loc>
+  </url>
+  <url>
+    <loc>mailto:email@example.com</loc>
+  </url>
+  <url>
+    <loc> </loc>
+  </url>
+</urlset>

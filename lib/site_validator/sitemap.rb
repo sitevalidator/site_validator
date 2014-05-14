@@ -52,7 +52,8 @@ module SiteValidator
     # to absolute links, remove anchors from links, include the sitemap url, and exclude links that don't
     # seem to point to HTML (like images, multimedia, text, javascript...)
     def pages_in_sitemap
-      pages = xml_locations.select {|loc| looks_like_html?(loc.text)}.map {|loc| SiteValidator::Page.new(loc.text)}
+      pages = xml_locations.select {|loc| looks_like_html?(loc.text.strip)}.map {|loc| SiteValidator::Page.new(loc.text.strip)}
+
       if pages.empty?
         m     = MetaInspector.new(url, :timeout => timeout, :allow_redirections => :all)
         links = [m.url]
@@ -78,6 +79,8 @@ module SiteValidator
       extension = u.path.split(".").last  if u.path
 
       (scheme =~ /http[s]?/i) && (extension !~ /gif|jpg|jpeg|png|tiff|bmp|txt|pdf|mobi|epub|doc|rtf|xml|xls|csv|wav|mp3|ogg|zip|rar|tar|gz/i)
+    rescue URI::InvalidURIError
+      false
     end
 
     def xml_locations
