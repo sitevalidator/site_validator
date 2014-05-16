@@ -6,6 +6,10 @@ module SiteValidator
       @errors, @warnings = [], []
     end
 
+    def checked_by
+      "w3c_validator"
+    end
+
     def add_error(message_id, line, col, message, source, explanation)
       @errors << SiteValidator::MockedMessage.new(message_id, line, col, message, source, explanation)
     end

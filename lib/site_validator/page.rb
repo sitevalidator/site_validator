@@ -62,7 +62,13 @@ module SiteValidator
     ##
     # Gets the validations for this page, ensuring it times out soon
     def validations
-      @validations ||= Timeout::timeout(timeout) { markup_validator.validate_uri(url) }
+      @validations ||= Timeout::timeout(timeout) {
+                         results = markup_validator.validate_uri(url)
+
+                         raise "Could not validate page" if results.checked_by.empty?
+
+                         results
+                       }
     end
 
     ##
