@@ -96,7 +96,7 @@ describe SiteValidator::Sitemap do
         @sitemap_with_safe_redirect.pages
       }.to_not raise_error
 
-      @sitemap_with_safe_redirect.pages.length.should == 37
+      @sitemap_with_safe_redirect.pages.length.should == 36
     end
 
     it "should follow unsafe (https => http) redirects" do
