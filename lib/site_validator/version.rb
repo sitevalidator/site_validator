@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
 
 module SiteValidator
-  VERSION = "1.3.11"
+  VERSION = "1.4.1"
 end
