@@ -184,6 +184,11 @@ describe SiteValidator::Sitemap do
         @sitemap_with_protocol_relative.pages.map {|p| p.url}.should_not include 'http://yahoo.com'
       end
     end
+
+    it "should be able to limit the number of pages" do
+      sitemap = SiteValidator::Sitemap.new('http://guides.rubyonrails.org', 10)
+      sitemap.pages.length.should == 10
+    end
   end
 
   describe "validations" do

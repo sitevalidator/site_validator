@@ -24,9 +24,9 @@ This will validate all the internal URLs found on the starting URL, up to a maxi
 
 You can pass site_validator an XML sitemap or the URL of a website; it will scrape it in search of URLs to validate.
 
-##Timeouts
+##Max pages
 
-By default, site_validator will set a 20 seconds timeout for each individual request. If you want to set a different timeout, pass it as a third parameter like this:
+By default, site_validator will validate up to 100 pages per sitemap. If you want to set a different value, pass it as a third parameter like this:
 
     site_validator http://validationhell.com report.html 60
 

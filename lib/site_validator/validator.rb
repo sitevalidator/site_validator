@@ -15,8 +15,8 @@ module SiteValidator
     # Shows progress on dot-style (...F...FFE..). A dot is a valid page,
     # an F is a page with errors, and an E is an exception
     # After the checking is done, a detailed summary is written to filename
-    def check(url, filename, timeout)
-      sitemap = SiteValidator::Sitemap.new(url, timeout.to_f)
+    def check(url, filename, max_pages)
+      sitemap = SiteValidator::Sitemap.new(url, max_pages.to_i)
       say "Validating #{sitemap.pages.length} pages"
 
       sitemap.pages.each do |page|

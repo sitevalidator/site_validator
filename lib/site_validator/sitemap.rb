@@ -2,24 +2,23 @@
 
 require 'nokogiri'
 require 'metainspector'
-require 'timeout'
 
 module SiteValidator
   ##
   # A sitemap has an URL, and holds a collection of pages to be validated
   #
   class Sitemap
-    attr_accessor :url, :timeout
+    attr_accessor :url, :max_pages
 
-    def initialize(url, timeout = 20)
-      @url      = url
-      @timeout  = timeout
+    def initialize(url, max_pages = 100)
+      @url       = url
+      @max_pages = max_pages
     end
 
     ##
     # Returns the first 250 unique URLs from the sitemap
     def pages
-      @pages ||= pages_in_sitemap.uniq {|p| p.url}[0..249]
+      @pages ||= pages_in_sitemap.uniq {|p| p.url}[0..max_pages-1]
     end
 
     ##
@@ -55,7 +54,7 @@ module SiteValidator
       pages = xml_locations.select {|loc| looks_like_html?(loc.text.strip)}.map {|loc| SiteValidator::Page.new(loc.text.strip)}
 
       if pages.empty?
-        m     = MetaInspector.new(url, :timeout => timeout, :allow_redirections => :all)
+        m     = MetaInspector.new(url, :timeout => 20, :allow_redirections => :all)
         links = [m.url]
 
         m.internal_links.select {|l| looks_like_html?(l)}.map {|l| l.split('#')[0]}.uniq.each do |link|

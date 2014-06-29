@@ -9,7 +9,7 @@ begin
   else
     puts "USAGE:  site_validator  url_of_sitemap  output_file.html"
     puts " OR "
-    puts "USAGE:  site_validator  url_of_sitemap  output_file.html  timeout_in_seconds"
+    puts "USAGE:  site_validator  url_of_sitemap  output_file.html  max_pages"
   end
 rescue
   puts "There was an error processing your request"
