@@ -52,7 +52,7 @@ More info about the `user-agent` option on the W3C Validator can be found [here]
 
 ##Notes:
 
-This gem requires Ruby 1.9, and has been tested on Ruby 1.9.2, 1.9.3 and 2.0.
+This gem is tested on Ruby 1.9.3 and 2.1.2.
 
 ##License:
 
