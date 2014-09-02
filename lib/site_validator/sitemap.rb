@@ -54,7 +54,7 @@ module SiteValidator
       pages = xml_locations.select {|loc| looks_like_html?(loc.text.strip)}.map {|loc| SiteValidator::Page.new(loc.text.strip)}
 
       if pages.empty?
-        m     = MetaInspector.new(url, :timeout => 20, :allow_redirections => :all)
+        m     = MetaInspector.new(url, :timeout => 20, :allow_redirections => :all, :headers => {'User-Agent' => SiteValidator::USER_AGENT})
         links = [m.url]
 
         m.internal_links.select {|l| looks_like_html?(l)}.map {|l| l.split('#')[0]}.uniq.each do |link|
@@ -87,7 +87,7 @@ module SiteValidator
     end
 
     def doc
-      @doc ||= open(url, :allow_redirections => :all)
+      @doc ||= open(url, "User-Agent" => SiteValidator::USER_AGENT, :allow_redirections => :all)
     end
   end
 end
