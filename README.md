@@ -52,7 +52,7 @@ More info about the `user-agent` option on the W3C Validator can be found [here]
 
 ##Notes:
 
-This gem is tested on Ruby 1.9.3 and 2.1.2.
+This gem is tested on Ruby 2.0.0 and 2.1.3.
 
 ##License:
 
