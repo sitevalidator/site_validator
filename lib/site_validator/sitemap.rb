@@ -54,7 +54,7 @@ module SiteValidator
       pages = xml_locations.select {|loc| looks_like_html?(loc.text.strip)}.map {|loc| SiteValidator::Page.new(loc.text.strip)}
 
       if pages.empty?
-        m     = MetaInspector.new(url, :timeout => 20, :allow_redirections => :all, :headers => {'User-Agent' => SiteValidator::USER_AGENT})
+        m     = scraped_doc
         links = [m.url]
 
         m.internal_links.select {|l| looks_like_html?(l)}.map {|l| l.split('#')[0]}.uniq.each do |link|
@@ -86,8 +86,12 @@ module SiteValidator
       Nokogiri::XML(doc).css('loc')
     end
 
+    def scraped_doc
+      @scraped_doc ||= MetaInspector.new(url, :headers => {'User-Agent' => SiteValidator::USER_AGENT})
+    end
+
     def doc
-      @doc ||= open(url, "User-Agent" => SiteValidator::USER_AGENT, :allow_redirections => :all)
+      @doc ||= scraped_doc.to_s
     end
   end
 end
