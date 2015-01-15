@@ -57,7 +57,7 @@ module SiteValidator
         m     = scraped_doc
         links = [m.url]
 
-        m.internal_links.select {|l| looks_like_html?(l)}.map {|l| l.split('#')[0]}.uniq.each do |link|
+        m.links.internal.select {|l| looks_like_html?(l)}.map {|l| l.split('#')[0]}.uniq.each do |link|
           if link[-1,1] == "/"
             links << link unless (links.include?(link) || links.include?(link.chop))
           else
