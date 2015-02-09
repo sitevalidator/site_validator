@@ -2,9 +2,9 @@
 
 site_validator is the free, open source version of the [Site Validator app](https://sitevalidator.com).
 
-Just pass it your site's URL and it will crawl its internal links and validate their HTML for you, generating a comprehensive validation report (see [an example](http://sitevalidator.com/gem/report.html)).
+Just pass it your site's URL and it will crawl its internal links and validate their HTML for you, generating a comprehensive validation report.
 
-[![site_validator screencast](https://dl.dropboxusercontent.com/u/2268180/sitevalidator_gem_video.png)](https://sitevalidator.com/video_gem?autoplay=true)
+[![site_validator screencast](https://dl.dropboxusercontent.com/u/2268180/sitevalidator_gem_video.png)](https://sitevalidator.wistia.com/medias/tk2nit1zdd)
 
 For advanced features like CSS validation, deep-link crawling, results storing and team collaborations, check the awesome [Site Validator](https://sitevalidator.com/).
 
