@@ -10,11 +10,15 @@ module SiteValidator
   # In case of an exception happens when validating, it is tracked
   #
   class Page
-    attr_accessor :url, :timeout, :exception
+    attr_accessor :url, :timeout, :validator_uri, :user_agent, :exception
 
-    def initialize(url, timeout = 20)
-      @url      = url
-      @timeout  = timeout
+    def initialize(url, options = {})
+      options = defaults.merge(options)
+
+      @url           = url
+      @timeout       = options[:timeout]
+      @validator_uri = options[:validator_uri]
+      @user_agent    = options[:user_agent]
     end
 
     ##
@@ -59,6 +63,14 @@ module SiteValidator
 
     private
 
+    def defaults
+      {
+        timeout:       20,
+        validator_uri: 'http://validator.w3.org/check',
+        user_agent:    SiteValidator::USER_AGENT
+      }
+    end
+
     ##
     # Gets the validations for this page, ensuring it times out soon
     def validations
@@ -74,8 +86,8 @@ module SiteValidator
     ##
     # Returns an instance of MarkupValidator, with the URL set to the one in ENV or its default
     def markup_validator
-      @markup_validator ||= MarkupValidator.new(:validator_uri => ENV['W3C_MARKUP_VALIDATOR_URI'] || 'http://validator.w3.org/check',
-                                                'user-agent'   => SiteValidator::USER_AGENT)
+      @markup_validator ||= MarkupValidator.new(:validator_uri => validator_uri,
+                                                'user-agent'   => user_agent)
     end
 
     ##
