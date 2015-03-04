@@ -1,4 +1,4 @@
-###Site Validator Gem [![travis build status](https://secure.travis-ci.org/jaimeiniesta/site_validator.png?branch=master)](http://travis-ci.org/jaimeiniesta/site_validator)
+###Site Validator Gem [![travis build status](https://secure.travis-ci.org/sitevalidator/site_validator.png?branch=master)](http://travis-ci.org/sitevalidator/site_validator)
 
 site_validator is the free, open source version of the [Site Validator app](https://sitevalidator.com).
 
