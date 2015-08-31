@@ -87,7 +87,8 @@ module SiteValidator
     end
 
     def scraped_doc
-      @scraped_doc ||= MetaInspector.new(url, headers: {'User-Agent' => SiteValidator::USER_AGENT},
+      @scraped_doc ||= MetaInspector.new(url, headers: {'User-Agent'      => SiteValidator::USER_AGENT,
+                                                        'Accept-Encoding' => 'none' },
                                               faraday_options: { ssl: { verify: false } })
     end
 
