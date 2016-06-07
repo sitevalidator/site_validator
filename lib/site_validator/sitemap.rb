@@ -75,7 +75,7 @@ module SiteValidator
     def looks_like_html?(url)
       u         = URI.parse(URI.encode(url))
       scheme    = u.scheme                if u.scheme
-      extension = u.path.split(".").last  if u.path
+      extension = u.path.split(".").last  if u.path && u.path.split(".").size > 1
 
       (scheme =~ /http[s]?/i) && (extension !~ /gif|jpg|jpeg|png|tiff|bmp|txt|pdf|mobi|epub|doc|rtf|xml|xls|csv|wav|mp3|ogg|zip|rar|tar|gz/i)
     rescue URI::InvalidURIError
